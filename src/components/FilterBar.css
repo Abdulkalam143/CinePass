@@ -1,0 +1,35 @@
+/* ============================================
+   FilterBar Component Styles
+   ============================================ */
+
+.filter-bar {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding: var(--space-sm) 0;
+}
+
+.filter-bar__chip {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.filter-bar__chip:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  background: var(--accent-subtle);
+}
+
+.filter-bar__chip.active {
+  background: linear-gradient(135deg, var(--accent), #ff4d5a);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}

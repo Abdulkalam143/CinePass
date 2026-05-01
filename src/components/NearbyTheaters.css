@@ -1,0 +1,310 @@
+/* ============================================
+   NearbyTheaters Component Styles
+   ============================================ */
+
+.nearby-theaters {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Header */
+.nearby-theaters__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.nearby-theaters__header:hover {
+  background: var(--bg-card-hover);
+}
+
+.nearby-theaters__title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.nearby-theaters__icon {
+  color: var(--accent);
+}
+
+.nearby-theaters__title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.nearby-theaters__toggle {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+}
+
+.nearby-theaters__toggle:hover {
+  color: var(--text-primary);
+}
+
+/* Content */
+.nearby-theaters__content {
+  overflow: hidden;
+}
+
+/* Prompt (initial state) */
+.nearby-theaters__prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+
+.nearby-theaters__prompt-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.15), rgba(229, 9, 20, 0.05));
+  border: 2px solid rgba(229, 9, 20, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  animation: float 3s ease-in-out infinite;
+}
+
+.nearby-theaters__prompt-text {
+  font-size: var(--fs-md);
+  color: var(--text-secondary);
+  max-width: 300px;
+}
+
+.nearby-theaters__find-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: linear-gradient(135deg, var(--accent), #ff4d5a);
+  color: white;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.nearby-theaters__find-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.nearby-theaters__prompt-hint {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* Loading */
+.nearby-theaters__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.nearby-theaters__spinner {
+  animation: spin 1s linear infinite;
+  color: var(--accent);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Error */
+.nearby-theaters__error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding: var(--space-md) var(--space-lg);
+  margin: 0 var(--space-lg) var(--space-lg);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-md);
+  color: #f87171;
+  font-size: var(--fs-sm);
+}
+
+.nearby-theaters__retry-btn {
+  margin-left: auto;
+  padding: 4px 12px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-full);
+  color: #f87171;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.nearby-theaters__retry-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+/* Theater list */
+.nearby-theaters__list {
+  padding: 0 var(--space-lg) var(--space-lg);
+}
+
+.nearby-theaters__location-info {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Theater card */
+.theater-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.theater-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateX(4px);
+  box-shadow: 0 2px 12px rgba(229, 9, 20, 0.1);
+}
+
+.theater-card__rank {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-subtle);
+  border: 1px solid rgba(229, 9, 20, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.theater-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.theater-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.theater-card__brand {
+  padding: 2px 8px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+}
+
+.theater-card__address {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theater-card__meta {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: 4px;
+}
+
+.theater-card__screens,
+.theater-card__phone {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.theater-card__distance {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.theater-card__km {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--seat-available);
+  white-space: nowrap;
+}
+
+.theater-card__link-icon {
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.theater-card:hover .theater-card__link-icon {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .nearby-theaters__header {
+    padding: var(--space-md);
+  }
+
+  .nearby-theaters__list {
+    padding: 0 var(--space-md) var(--space-md);
+  }
+
+  .theater-card {
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+  }
+
+  .theater-card__rank {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+
+  .theater-card__name {
+    font-size: var(--fs-xs);
+  }
+}

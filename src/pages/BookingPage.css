@@ -1,0 +1,24 @@
+/* BookingPage Styles */
+.booking-page{min-height:100vh;padding-top:calc(var(--header-height) + var(--space-xl));padding-bottom:var(--space-3xl)}
+.booking-page__loading{padding-top:calc(var(--header-height) + var(--space-3xl))}
+.booking-page__header{display:flex;align-items:center;gap:var(--space-lg);margin-bottom:var(--space-xl)}
+.booking-page__back{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-full);color:var(--text-primary);font-size:var(--fs-sm);font-weight:500;transition:all var(--transition-fast)}
+.booking-page__back:hover{background:var(--accent);border-color:var(--accent)}
+.booking-page__header-info{display:flex;flex-direction:column;gap:2px}
+.booking-page__title{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:700}
+.booking-page__showtime{font-size:var(--fs-sm);color:var(--text-secondary)}
+
+/* Expired warning */
+.booking-page__expired{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-md) var(--space-lg);background:rgba(239,68,68,0.1);border:1px solid var(--seat-booked);border-radius:var(--radius-md);color:var(--seat-booked);font-size:var(--fs-sm);font-weight:500;margin-bottom:var(--space-xl)}
+
+/* Layout */
+.booking-page__layout{display:grid;grid-template-columns:1fr 340px;gap:var(--space-xl);align-items:start}
+.booking-page__seats-section{display:flex;flex-direction:column;gap:var(--space-lg);overflow-x:auto}
+.booking-page__sidebar{display:flex;flex-direction:column;gap:var(--space-lg)}
+
+@media(max-width:1024px){
+  .booking-page__layout{grid-template-columns:1fr;gap:var(--space-xl)}
+}
+@media(max-width:768px){
+  .booking-page__header{flex-direction:column;align-items:flex-start}
+}

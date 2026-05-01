@@ -1,0 +1,40 @@
+/* PaymentSuccessPage Styles */
+.payment-page{min-height:100vh;padding-top:calc(var(--header-height) + var(--space-2xl));padding-bottom:var(--space-3xl);position:relative;overflow:hidden}
+.payment-page__empty{padding-top:calc(var(--header-height) + var(--space-3xl));text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--space-md);color:var(--text-secondary)}
+.payment-page__empty button{padding:var(--space-sm) var(--space-xl);background:var(--accent);color:white;border-radius:var(--radius-md)}
+.payment-page__container{display:flex;flex-direction:column;align-items:center;text-align:center}
+
+/* Confetti */
+.payment-page__confetti{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.confetti-piece{position:absolute;top:-20px;border-radius:2px;animation:confetti-fall linear forwards}
+
+/* Success icon */
+.payment-page__success-icon{margin-bottom:var(--space-xl);position:relative;z-index:1}
+.payment-page__circle{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(34,197,94,0.05));border:3px solid var(--seat-available);display:flex;align-items:center;justify-content:center;color:var(--seat-available)}
+
+.payment-page__heading{font-family:var(--font-heading);font-size:var(--fs-3xl);font-weight:800;margin-bottom:var(--space-sm);position:relative;z-index:1}
+.payment-page__subtext{color:var(--text-secondary);font-size:var(--fs-md);margin-bottom:var(--space-2xl);position:relative;z-index:1}
+
+/* Ticket card */
+.payment-page__ticket{width:100%;max-width:500px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;position:relative;z-index:1;margin-bottom:var(--space-xl)}
+.payment-page__ticket-header{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-md) var(--space-lg);background:linear-gradient(135deg,var(--accent),#ff4d5a);color:white;font-weight:600;font-size:var(--fs-sm)}
+.payment-page__booking-id{margin-left:auto;font-family:monospace;font-size:var(--fs-xs);background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:var(--radius-sm)}
+.payment-page__ticket-body{padding:var(--space-lg);display:flex;flex-direction:column;gap:var(--space-lg)}
+.payment-page__ticket-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);text-align:left}
+.payment-page__ticket-field{display:flex;flex-direction:column;gap:4px}
+.payment-page__ticket-label{display:flex;align-items:center;gap:4px;font-size:var(--fs-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+.payment-page__ticket-value{font-size:var(--fs-md);font-weight:600;color:var(--text-primary)}
+.payment-page__ticket-value--amount{color:var(--seat-available);font-size:var(--fs-lg)}
+.payment-page__ticket-footer{padding:var(--space-md) var(--space-lg);border-top:1px dashed var(--border);font-size:var(--fs-xs);color:var(--text-muted);text-align:left}
+
+/* Actions */
+.payment-page__actions{display:flex;gap:var(--space-md);position:relative;z-index:1;flex-wrap:wrap;justify-content:center}
+.payment-page__home-btn{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-md) var(--space-xl);background:linear-gradient(135deg,var(--accent),#ff4d5a);color:white;font-weight:700;border-radius:var(--radius-md);transition:all var(--transition-base);box-shadow:0 4px 15px var(--accent-glow)}
+.payment-page__home-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px var(--accent-glow)}
+.payment-page__download-btn{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-md) var(--space-xl);background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);font-weight:600;border-radius:var(--radius-md);transition:all var(--transition-fast)}
+.payment-page__download-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+@media(max-width:600px){
+  .payment-page__heading{font-size:var(--fs-2xl)}
+  .payment-page__ticket-row{grid-template-columns:1fr}
+}

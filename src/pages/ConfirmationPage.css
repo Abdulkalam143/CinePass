@@ -1,0 +1,37 @@
+/* ConfirmationPage Styles */
+.confirm-page{min-height:100vh;padding-top:calc(var(--header-height) + var(--space-xl));padding-bottom:var(--space-3xl)}
+.confirm-page__empty{padding-top:calc(var(--header-height) + var(--space-3xl));text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--space-md);color:var(--text-secondary)}
+.confirm-page__empty button{padding:var(--space-sm) var(--space-xl);background:var(--accent);color:white;border-radius:var(--radius-md);font-weight:600}
+.confirm-page__back{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-full);color:var(--text-primary);font-size:var(--fs-sm);font-weight:500;transition:all var(--transition-fast);margin-bottom:var(--space-xl)}
+.confirm-page__back:hover{background:var(--accent);border-color:var(--accent)}
+.confirm-page__heading{display:flex;align-items:center;gap:var(--space-sm);font-family:var(--font-heading);font-size:var(--fs-2xl);font-weight:700;margin-bottom:var(--space-xl);color:var(--text-primary)}
+
+/* Card */
+.confirm-page__card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-xl);display:flex;flex-direction:column;gap:var(--space-xl);max-width:700px}
+
+/* Movie */
+.confirm-page__movie{display:flex;gap:var(--space-lg);padding-bottom:var(--space-lg);border-bottom:1px solid var(--border)}
+.confirm-page__poster{width:120px;height:180px;object-fit:cover;border-radius:var(--radius-md);box-shadow:var(--shadow-md)}
+.confirm-page__movie-info{display:flex;flex-direction:column;gap:var(--space-sm)}
+.confirm-page__movie-title{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:700}
+.confirm-page__detail{display:flex;align-items:center;gap:var(--space-sm);color:var(--text-secondary);font-size:var(--fs-sm)}
+
+/* Pricing */
+.confirm-page__pricing{display:flex;flex-direction:column;gap:var(--space-sm)}
+.confirm-page__pricing h3{font-family:var(--font-heading);font-size:var(--fs-md);font-weight:600;margin-bottom:var(--space-sm)}
+.confirm-page__price-line{display:flex;justify-content:space-between;font-size:var(--fs-sm);color:var(--text-secondary)}
+.confirm-page__price-line--fee{color:var(--text-muted);font-size:var(--fs-xs)}
+.confirm-page__divider{height:1px;background:var(--border)}
+.confirm-page__price-line--total{font-size:var(--fs-lg);font-weight:700;color:var(--text-primary)}
+
+/* Actions */
+.confirm-page__actions{display:flex;flex-direction:column;gap:var(--space-md)}
+.confirm-page__confirm-btn{display:flex;align-items:center;justify-content:center;gap:var(--space-sm);padding:var(--space-md) var(--space-xl);background:linear-gradient(135deg,var(--accent),#ff4d5a);color:white;font-weight:700;font-size:var(--fs-md);border-radius:var(--radius-md);transition:all var(--transition-base);box-shadow:0 4px 20px var(--accent-glow)}
+.confirm-page__confirm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+.confirm-page__cancel-btn{padding:var(--space-md);background:transparent;border:1px solid var(--border);border-radius:var(--radius-md);color:var(--text-secondary);font-weight:500;transition:all var(--transition-fast)}
+.confirm-page__cancel-btn:hover{border-color:var(--text-secondary);color:var(--text-primary)}
+
+@media(max-width:600px){
+  .confirm-page__movie{flex-direction:column;align-items:center;text-align:center}
+  .confirm-page__poster{width:100px;height:150px}
+}

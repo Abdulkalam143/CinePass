@@ -1,0 +1,137 @@
+/* ============================================
+   LocationIndicator Component Styles
+   ============================================ */
+
+.loc-indicator {
+  display: flex;
+  align-items: center;
+}
+
+/* Badge base */
+.loc-indicator__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Active state (location found) */
+.loc-indicator__badge--active {
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.06);
+  color: var(--text-primary);
+}
+
+/* Live pulse dot */
+.loc-indicator__pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--seat-available);
+  box-shadow: 0 0 6px var(--seat-available-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.loc-indicator__pin {
+  color: var(--seat-available);
+}
+
+.loc-indicator__region {
+  padding: 1px 6px;
+  background: rgba(34, 197, 94, 0.15);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--seat-available);
+  letter-spacing: 1px;
+}
+
+.loc-indicator__refresh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  margin-left: 2px;
+}
+
+.loc-indicator__refresh:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  transform: rotate(180deg);
+}
+
+/* Loading state */
+.loc-indicator__badge--loading {
+  border-color: rgba(234, 179, 8, 0.3);
+  background: rgba(234, 179, 8, 0.06);
+}
+
+.loc-indicator__spinner {
+  animation: spin 1s linear infinite;
+  color: var(--seat-selected);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Prompt state (not yet enabled) */
+.loc-indicator__badge--prompt {
+  cursor: pointer;
+  border-color: rgba(229, 9, 20, 0.2);
+  background: var(--accent-subtle);
+}
+
+.loc-indicator__badge--prompt:hover {
+  border-color: var(--accent);
+  background: rgba(229, 9, 20, 0.1);
+  color: var(--text-primary);
+}
+
+.loc-indicator__error-icon {
+  color: var(--seat-booked);
+}
+
+.loc-indicator__retry {
+  padding: 1px 8px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  margin-left: 4px;
+}
+
+.loc-indicator__globe {
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .loc-indicator__badge {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .loc-indicator__text {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

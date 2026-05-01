@@ -1,0 +1,32 @@
+/* ============================================
+   SeatLegend Component Styles
+   ============================================ */
+
+.seat-legend {
+  display: flex;
+  gap: var(--space-xl);
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.seat-legend__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.seat-legend__color {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px 4px 8px 8px;
+}
+
+.seat-legend__label {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
