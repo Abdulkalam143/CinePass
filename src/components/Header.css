@@ -99,9 +99,66 @@
 .header__actions {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
+/* Login button */
+.header__login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.header__login-btn:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  background: var(--accent-subtle);
+}
+
+/* User display */
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.header__user-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--accent-subtle);
+  border: 1px solid rgba(229, 9, 20, 0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.header__logout-btn {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm);
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.header__logout-btn:hover {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Book button */
 .header__book-btn {
   display: flex;
   align-items: center;
@@ -140,7 +197,7 @@
 }
 
 .header__mobile-menu.open {
-  max-height: 300px;
+  max-height: 400px;
 }
 
 .header__mobile-link {
@@ -149,6 +206,9 @@
   font-weight: 500;
   border-bottom: 1px solid var(--border);
   transition: all var(--transition-fast);
+  text-align: left;
+  width: 100%;
+  background: transparent;
 }
 
 .header__mobile-link:hover,
@@ -163,8 +223,16 @@
     display: none;
   }
 
-  .header__book-btn span {
+  .header__book-btn span,
+  .header__login-btn span {
     display: none;
+  }
+
+  .header__user-name {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header__menu-btn {

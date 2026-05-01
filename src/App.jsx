@@ -12,6 +12,10 @@ import MovieDetailsPage from './pages/MovieDetailsPage';
 import BookingPage from './pages/BookingPage';
 import ConfirmationPage from './pages/ConfirmationPage';
 import PaymentSuccessPage from './pages/PaymentSuccessPage';
+import AboutPage from './pages/AboutPage';
+import WalletPage from './pages/WalletPage';
+import ContactPage from './pages/ContactPage';
+import AuthPage from './pages/AuthPage';
 import './App.css';
 
 // AnimatedRoutes wrapper to enable page transitions
@@ -26,6 +30,10 @@ const AnimatedRoutes = () => {
         <Route path="/booking/:id" element={<BookingPage />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
         <Route path="/payment-success" element={<PaymentSuccessPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/wallet" element={<WalletPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<AuthPage />} />
       </Routes>
     </AnimatePresence>
   );

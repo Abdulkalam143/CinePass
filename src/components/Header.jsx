@@ -1,17 +1,37 @@
 /**
  * Header — Main navigation bar with glassmorphism effect
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Film, Menu, X, Ticket } from 'lucide-react';
+import { Film, Menu, X, Ticket, User, LogOut } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
+
+  // Check for logged-in user session
+  useEffect(() => {
+    const session = localStorage.getItem('cinepass_session');
+    if (session) {
+      try {
+        const parsed = JSON.parse(session);
+        if (parsed.loggedIn) setUser(parsed);
+      } catch { /* ignore */ }
+    }
+  }, [location.pathname]); // Re-check on page change
+
+  const handleLogout = () => {
+    localStorage.removeItem('cinepass_session');
+    setUser(null);
+  };
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/wallet', label: 'Wallet' },
+    { path: '/contact', label: 'Support' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -42,6 +62,23 @@ const Header = () => {
 
         {/* Right side */}
         <div className="header__actions">
+          {user ? (
+            <div className="header__user">
+              <span className="header__user-name">
+                <User size={14} />
+                {user.name}
+              </span>
+              <button className="header__logout-btn" onClick={handleLogout} title="Logout">
+                <LogOut size={16} />
+              </button>
+            </div>
+          ) : (
+            <Link to="/login" className="header__login-btn" id="header-login-btn">
+              <User size={16} />
+              <span>Login</span>
+            </Link>
+          )}
+
           <Link to="/" className="header__book-btn" id="header-book-btn">
             <Ticket size={18} />
             <span>Book Now</span>
@@ -71,6 +108,22 @@ const Header = () => {
             {link.label}
           </Link>
         ))}
+        {user ? (
+          <button
+            className="header__mobile-link"
+            onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+          >
+            Logout ({user.name})
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className={`header__mobile-link ${isActive('/login') ? 'active' : ''}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Login / Sign Up
+          </Link>
+        )}
       </div>
     </header>
   );
