@@ -1,0 +1,183 @@
+.cricket-page {
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.cricket-hero {
+  position: relative;
+  height: 450px;
+  background: url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  margin-bottom: -60px;
+}
+
+.cricket-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 15, 0.4),
+    var(--bg-body)
+  );
+}
+
+.cricket-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.cricket-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: #a855f7;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.cricket-hero__title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.cricket-hero__title span {
+  background: linear-gradient(to right, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cricket-hero__desc {
+  max-width: 600px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.cricket-page__content {
+  position: relative;
+  z-index: 2;
+}
+
+.cricket-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.cricket-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 14px;
+  width: 350px;
+  transition: all 0.2s;
+}
+
+.cricket-search:focus-within {
+  border-color: #a855f7;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+.cricket-search input {
+  background: none;
+  border: none;
+  color: white;
+  width: 100%;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.cricket-categories {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.cricket-category {
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.cricket-category:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.cricket-category.active {
+  background: #a855f7;
+  color: white;
+  border-color: #a855f7;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+.cricket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.cricket-empty {
+  grid-column: 1 / -1;
+  padding: 100px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--border);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cricket-empty h3 {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.cricket-empty p {
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .cricket-hero {
+    height: 350px;
+    margin-bottom: -40px;
+  }
+
+  .cricket-hero__title {
+    font-size: 2.2rem;
+  }
+
+  .cricket-search {
+    width: 100%;
+  }
+}

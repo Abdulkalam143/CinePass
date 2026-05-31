@@ -1,0 +1,279 @@
+/* ============================================
+   Splash Screen — CinePass Logo Animation
+   Cinematic intro with film reel + particles
+   ============================================ */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #06060c;
+  overflow: hidden;
+}
+
+/* ── Background Orbs ──────────────────────── */
+.splash__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.splash__orb--1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.2), transparent);
+  top: -100px;
+  left: -100px;
+  animation: splash-orb-float 4s ease-in-out infinite;
+}
+
+.splash__orb--2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.15), transparent);
+  bottom: -80px;
+  right: -80px;
+  animation: splash-orb-float 5s ease-in-out infinite reverse;
+}
+
+.splash__orb--3 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 77, 90, 0.12), transparent);
+  top: 40%;
+  left: 60%;
+  animation: splash-orb-float 6s ease-in-out infinite 1s;
+}
+
+@keyframes splash-orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -20px) scale(1.1); }
+}
+
+/* ── Film Strips ──────────────────────────── */
+.splash__strip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  background: rgba(229, 9, 20, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 0;
+  z-index: 1;
+}
+
+.splash__strip--left {
+  left: 40px;
+  animation: splash-strip-slide 3s linear infinite;
+}
+
+.splash__strip--right {
+  right: 40px;
+  animation: splash-strip-slide 3s linear infinite reverse;
+}
+
+.splash__strip-hole {
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+  background: rgba(229, 9, 20, 0.12);
+  border: 1px solid rgba(229, 9, 20, 0.08);
+}
+
+@keyframes splash-strip-slide {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+/* ── Particles ────────────────────────────── */
+.splash__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.splash__particle {
+  position: absolute;
+  left: var(--px);
+  top: var(--py);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: rgba(229, 9, 20, 0.5);
+  animation: splash-particle var(--duration) ease-in-out var(--delay) infinite;
+  box-shadow: 0 0 6px rgba(229, 9, 20, 0.3);
+}
+
+@keyframes splash-particle {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+  80% {
+    opacity: 0.6;
+    transform: translateY(-40px) scale(0.8);
+  }
+}
+
+/* ── Main Content ─────────────────────────── */
+.splash__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* ── Film Reel Icon ───────────────────────── */
+.splash__reel {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 32px;
+}
+
+.splash__reel-svg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.splash__reel-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.4), transparent 70%);
+  z-index: 1;
+  animation: splash-glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes splash-glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+/* ── Text ─────────────────────────────────── */
+.splash__text {
+  text-align: center;
+}
+
+.splash__title {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  display: flex;
+  justify-content: center;
+}
+
+.splash__char {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffffff 0%, #e50914 40%, #ff4d5a 60%, #ffffff 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: splash-text-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes splash-text-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.splash__divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #e50914, #ff4d5a, transparent);
+  margin: 16px auto;
+  border-radius: 2px;
+  transform-origin: center;
+}
+
+.splash__tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* ── Loading Bar ──────────────────────────── */
+.splash__loader {
+  margin-top: 40px;
+  width: 200px;
+}
+
+.splash__loader-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.splash__loader-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e50914, #ff4d5a, #e50914);
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.5);
+}
+
+/* ── Cinematic Bars (letterbox) ────────────── */
+.splash__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #06060c;
+  z-index: 20;
+}
+
+.splash__bar--top {
+  top: 0;
+}
+
+.splash__bar--bottom {
+  bottom: 0;
+}
+
+/* ── Responsive ───────────────────────────── */
+@media (max-width: 640px) {
+  .splash__title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+
+  .splash__reel {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 24px;
+  }
+
+  .splash__tagline {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+  }
+
+  .splash__strip {
+    display: none;
+  }
+
+  .splash__loader {
+    width: 160px;
+  }
+}

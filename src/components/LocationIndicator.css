@@ -29,6 +29,23 @@
   border-color: rgba(34, 197, 94, 0.3);
   background: rgba(34, 197, 94, 0.06);
   color: var(--text-primary);
+  cursor: pointer;
+}
+
+.loc-indicator__badge--manual {
+  border-color: rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.06);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.loc-indicator__badge--manual .loc-indicator__pulse {
+  background: #a855f7;
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.5);
+}
+
+.loc-indicator__badge--manual .loc-indicator__pin {
+  color: #a855f7;
 }
 
 /* Live pulse dot */
@@ -90,7 +107,28 @@
   to { transform: rotate(360deg); }
 }
 
-/* Prompt state (not yet enabled) */
+/* Prompt group (two buttons side by side) */
+.loc-indicator__prompt-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Detect button (GPS auto-detect) */
+.loc-indicator__badge--detect {
+  cursor: pointer;
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.08);
+  color: #22c55e;
+}
+
+.loc-indicator__badge--detect:hover {
+  border-color: rgba(34, 197, 94, 0.6);
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+/* Prompt state (manual select) */
 .loc-indicator__badge--prompt {
   cursor: pointer;
   border-color: rgba(229, 9, 20, 0.2);
@@ -120,6 +158,11 @@
 .loc-indicator__globe {
   color: var(--accent);
   opacity: 0.6;
+}
+
+.loc-indicator__chevron {
+  opacity: 0.5;
+  margin-left: 2px;
 }
 
 /* Responsive */

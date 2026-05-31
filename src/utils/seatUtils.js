@@ -1,13 +1,25 @@
 /**
  * Seat utility functions
  * Generates theater seat layouts and calculates pricing
+ *
+ * Layout matches real Indian cinemas (PVR, INOX, Cinépolis):
+ *   Front rows (near screen) → Basic    (₹150)
+ *   Middle rows              → Standard (₹250)
+ *   Back rows (best view)    → Premium  (₹400)
  */
 
-// Pricing tiers by row
+// Pricing tiers — ordered front-to-back (nearest screen → farthest)
 const PRICING = {
-  premium: { rows: ['A', 'B'], price: 350, label: 'Premium' },
-  standard: { rows: ['C', 'D', 'E', 'F'], price: 250, label: 'Standard' },
-  budget: { rows: ['G', 'H'], price: 150, label: 'Budget' },
+  basic:    { rows: ['A', 'B', 'C'],                         price: 150, label: 'Basic' },
+  standard: { rows: ['D', 'E', 'F', 'G'],                    price: 250, label: 'Standard' },
+  premium:  { rows: ['H', 'I', 'J', 'K', 'L', 'M', 'N'],    price: 400, label: 'Premium' },
+};
+
+// For stadium (cricket), use separate pricing
+const STADIUM_PRICING = {
+  basic:    { rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],                     price: 500,  label: 'Basic' },
+  standard: { rows: ['I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'],                     price: 1000, label: 'Standard' },
+  premium:  { rows: ['Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],           price: 2000, label: 'Premium' },
 };
 
 /**
@@ -38,11 +50,17 @@ export const getPricingTiers = () => PRICING;
 /**
  * Generate a theater seat layout
  * Returns a 2D array of seat objects
- * @param {number} rows - Number of rows (default 8)
- * @param {number} cols - Number of seats per row (default 12)
- * @param {number} bookedPercent - Percentage of seats to mark as booked (0-1)
+ *
+ * For cinema: 10 rows × 14 seats
+ *   Rows A-C = Basic (₹150)   — 3 rows near screen
+ *   Rows D-G = Standard (₹250) — 4 rows middle
+ *   Rows H-J = Premium (₹400)  — 3 rows back (best view)
+ *
+ * @param {number} rows - Number of rows (default 10)
+ * @param {number} cols - Number of seats per row (default 14)
+ * @param {number} bookedPercent - Percentage of seats pre-booked (0-1)
  */
-export const generateSeatLayout = (rows = 8, cols = 12, bookedPercent = 0.2) => {
+export const generateSeatLayout = (rows = 10, cols = 14, bookedPercent = 0.2) => {
   const rowLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').slice(0, rows);
   const layout = [];
 
@@ -60,8 +78,8 @@ export const generateSeatLayout = (rows = 8, cols = 12, bookedPercent = 0.2) => 
   for (let r = 0; r < rows; r++) {
     const row = [];
     for (let c = 0; c < cols; c++) {
-      // Add an aisle gap after seat 3 and before seat 9 (seats 4-8 are middle section)
-      const isAisle = c === 3 || c === 8;
+      // Aisle gaps: after seat 4 and after seat 10 (creates left, center, right sections)
+      const isAisle = c === 3 || c === 10;
 
       row.push({
         id: `${rowLabels[r]}${c + 1}`,
@@ -87,7 +105,9 @@ export const calculateTotal = (selectedSeats, seatLayout) => {
   if (!selectedSeats.length || !seatLayout.length) return 0;
 
   return selectedSeats.reduce((total, seatId) => {
-    const row = seatId.charAt(0);
+    // Handle prefixed IDs like "N-A1" -> "A1"
+    const actualId = seatId.includes('-') ? seatId.split('-')[1] : seatId;
+    const row = actualId.charAt(0);
     return total + getSeatPrice(row);
   }, 0);
 };

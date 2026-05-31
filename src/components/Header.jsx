@@ -1,15 +1,18 @@
 /**
  * Header — Main navigation bar with glassmorphism effect
+ * Includes theme toggle (Light/Dark) and My Bookings link
  */
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Film, Menu, X, Ticket, User, LogOut } from 'lucide-react';
+import { Film, Menu, X, Ticket, User, LogOut, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import './Header.css';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
+  const { theme, toggleTheme, isDark } = useTheme();
 
   // Check for logged-in user session
   useEffect(() => {
@@ -29,6 +32,7 @@ const Header = () => {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/my-bookings', label: 'My Bookings' },
     { path: '/about', label: 'About' },
     { path: '/wallet', label: 'Wallet' },
     { path: '/contact', label: 'Support' },
@@ -62,12 +66,25 @@ const Header = () => {
 
         {/* Right side */}
         <div className="header__actions">
+          {/* Theme Toggle */}
+          <button
+            className="header__theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+            title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+            id="theme-toggle-btn"
+          >
+            <div className={`header__theme-icon-wrap ${isDark ? '' : 'rotated'}`}>
+              {isDark ? <Moon size={18} /> : <Sun size={18} />}
+            </div>
+          </button>
+
           {user ? (
             <div className="header__user">
-              <span className="header__user-name">
+              <Link to="/profile" className="header__user-name" title="View Profile">
                 <User size={14} />
                 {user.name}
-              </span>
+              </Link>
               <button className="header__logout-btn" onClick={handleLogout} title="Logout">
                 <LogOut size={16} />
               </button>
@@ -108,13 +125,30 @@ const Header = () => {
             {link.label}
           </Link>
         ))}
+        {/* Mobile theme toggle */}
+        <button
+          className="header__mobile-link header__mobile-theme-toggle"
+          onClick={() => { toggleTheme(); }}
+        >
+          {isDark ? <Sun size={16} /> : <Moon size={16} />}
+          {isDark ? 'Light Mode' : 'Dark Mode'}
+        </button>
         {user ? (
-          <button
-            className="header__mobile-link"
-            onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
-          >
-            Logout ({user.name})
-          </button>
+          <>
+            <Link
+              to="/profile"
+              className={`header__mobile-link ${isActive('/profile') ? 'active' : ''}`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              My Profile
+            </Link>
+            <button
+              className="header__mobile-link"
+              onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+            >
+              Logout ({user.name})
+            </button>
+          </>
         ) : (
           <Link
             to="/login"

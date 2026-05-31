@@ -1,15 +1,53 @@
 /**
  * TheaterShowtimes — Shows which nearby theaters are screening this movie
  * Each theater shows screen number and available showtimes
+ * Includes a 5-day date picker for advance booking
  * Uses GPS to find real nearby cinema names from OpenStreetMap
  */
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   MapPin, Navigation, Loader, Monitor, Clock,
-  ChevronRight, Building2, Armchair, Wifi,
+  ChevronRight, Building2, Armchair, Wifi, CalendarDays,
 } from 'lucide-react';
 import './TheaterShowtimes.css';
+
+/**
+ * Generate the next N days starting from today
+ * Returns array of { date, dayName, dayNum, month, isToday, isTomorrow, label, dateStr }
+ */
+const generateDates = (count = 5) => {
+  const dates = [];
+  const now = new Date();
+
+  for (let i = 0; i < count; i++) {
+    const d = new Date(now);
+    d.setDate(d.getDate() + i);
+
+    const dayName = d.toLocaleDateString('en-IN', { weekday: 'short' }); // Mon, Tue
+    const dayNum = d.getDate();
+    const month = d.toLocaleDateString('en-IN', { month: 'short' }); // May, Jun
+    const dateStr = d.toISOString().split('T')[0]; // 2026-05-17
+
+    let label = dayName;
+    if (i === 0) label = 'Today';
+    else if (i === 1) label = 'Tomorrow';
+
+    dates.push({
+      date: d,
+      dayName,
+      dayNum,
+      month,
+      isToday: i === 0,
+      isTomorrow: i === 1,
+      label,
+      dateStr,
+      displayFull: `${label}, ${dayNum} ${month}`, // "Today, 17 May"
+    });
+  }
+
+  return dates;
+};
 
 /**
  * Calculate distance between two coordinates (Haversine)
@@ -71,11 +109,12 @@ const fetchNearbyCinemas = async (lat, lon) => {
 
 /**
  * Generate simulated screens & showtimes for a theater
- * Uses movie ID as seed so same movie always gets same times per theater
+ * Uses movie ID + date as seed so same movie gets consistent but
+ * different times per theater and per day.
  */
-const generateTheaterScreens = (theaterId, movieId) => {
-  // Seed-based pseudo-random to keep consistency
-  const seed = (theaterId * 7 + movieId * 13) % 100;
+const generateTheaterScreens = (theaterId, movieId, dateSeed = 0) => {
+  // Seed-based pseudo-random to keep consistency per day
+  const seed = (theaterId * 7 + movieId * 13 + dateSeed * 3) % 100;
   const screenCount = 1 + (seed % 3); // 1-3 screens per theater
 
   const allTimes = [
@@ -87,34 +126,52 @@ const generateTheaterScreens = (theaterId, movieId) => {
     '9:00 PM', '9:30 PM', '10:00 PM', '10:30 PM',
   ];
 
+  // For today, filter out past showtimes
+  const now = new Date();
+  const isToday = dateSeed === 0;
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  const availableTimes = isToday
+    ? allTimes.filter((t) => {
+        const [time, period] = t.split(' ');
+        let [h, m] = time.split(':').map(Number);
+        if (period === 'PM' && h !== 12) h += 12;
+        if (period === 'AM' && h === 12) h = 0;
+        return h * 60 + m > currentMinutes + 30; // At least 30 min from now
+      })
+    : allTimes;
+
+  if (availableTimes.length === 0) return []; // No shows left today
+
   const formats = ['2D', '3D', 'IMAX', '4DX', 'Dolby Atmos'];
   const screens = [];
 
   for (let i = 0; i < screenCount; i++) {
-    const screenSeed = (seed + i * 17) % allTimes.length;
-    const timeCount = 3 + (screenSeed % 3); // 3-5 showtimes
-    const startIdx = (screenSeed * 3) % (allTimes.length - timeCount);
+    const screenSeed = (seed + i * 17) % availableTimes.length;
+    const timeCount = Math.min(3 + (screenSeed % 3), availableTimes.length); // 3-5 showtimes
+    const startIdx = (screenSeed * 3) % Math.max(availableTimes.length - timeCount, 1);
 
-    // Pick sequential showtimes for realism
     const showtimes = [];
     const usedIndices = new Set();
     let idx = startIdx;
-    while (showtimes.length < timeCount && idx < allTimes.length) {
+    while (showtimes.length < timeCount && idx < availableTimes.length) {
       if (!usedIndices.has(idx)) {
-        showtimes.push(allTimes[idx]);
+        showtimes.push(availableTimes[idx]);
         usedIndices.add(idx);
-        idx += 2 + (screenSeed % 2); // Skip 2-3 slots between shows
+        idx += 2 + (screenSeed % 2);
       } else {
         idx++;
       }
     }
 
+    if (showtimes.length === 0) continue;
+
     const formatIdx = (seed + i * 7) % formats.length;
     screens.push({
-      screenNumber: i + 1 + ((seed % 4) * 2), // Realistic screen numbers
+      screenNumber: i + 1 + ((seed % 4) * 2),
       format: formats[formatIdx],
       showtimes,
-      price: formatIdx >= 2 ? 350 : formatIdx === 1 ? 300 : 250, // IMAX/4DX more expensive
+      price: formatIdx >= 2 ? 350 : formatIdx === 1 ? 300 : 250,
     });
   }
 
@@ -123,6 +180,7 @@ const generateTheaterScreens = (theaterId, movieId) => {
 
 const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
   const [theaters, setTheaters] = useState([]);
+  const [rawCinemas, setRawCinemas] = useState([]); // Raw cinema data (no screens)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [locationRequested, setLocationRequested] = useState(false);
@@ -130,6 +188,10 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
   const [selectedScreen, setSelectedScreen] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [expandedTheater, setExpandedTheater] = useState(null);
+
+  // Date picker state
+  const bookingDates = useMemo(() => generateDates(5), []);
+  const [selectedDate, setSelectedDate] = useState(bookingDates[0]);
 
   // Check if location was previously granted
   useEffect(() => {
@@ -160,17 +222,21 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
             position.coords.longitude
           );
 
-          // Attach screen & showtime data to each theater
+          // Store raw cinema data
+          setRawCinemas(cinemas);
+
+          // Attach screen & showtime data for the selected date
+          const dateSeed = selectedDate ? bookingDates.indexOf(selectedDate) : 0;
           const theatersWithScreens = cinemas.map((theater) => ({
             ...theater,
-            screens: generateTheaterScreens(theater.id, movieId),
-          }));
+            screens: generateTheaterScreens(theater.id, movieId, dateSeed),
+          })).filter(t => t.screens.length > 0);
 
           setTheaters(theatersWithScreens);
           if (theatersWithScreens.length > 0) {
             setExpandedTheater(theatersWithScreens[0].id);
           }
-          if (theatersWithScreens.length === 0) {
+          if (cinemas.length === 0) {
             setError('No theaters found nearby. Try enabling location or searching manually.');
           }
         } catch {
@@ -186,6 +252,23 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
     );
   }, [movieId]);
 
+  // When selected date changes, regenerate showtimes for all theaters
+  useEffect(() => {
+    if (rawCinemas.length > 0) {
+      const dateSeed = bookingDates.indexOf(selectedDate);
+      const theatersWithScreens = rawCinemas.map((theater) => ({
+        ...theater,
+        screens: generateTheaterScreens(theater.id, movieId, dateSeed),
+      })).filter(t => t.screens.length > 0);
+
+      setTheaters(theatersWithScreens);
+      // Clear selection when date changes
+      setSelectedTheater(null);
+      setSelectedScreen(null);
+      setSelectedTime('');
+    }
+  }, [selectedDate, rawCinemas, movieId, bookingDates]);
+
   /**
    * Handle showtime selection
    */
@@ -194,16 +277,22 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
     setSelectedScreen(screen);
     setSelectedTime(time);
 
-    // Pass selection up to parent
+    // Pass selection up to parent — including date
     onSelectShowtime({
       theaterName: theater.name,
       theaterDistance: theater.distance,
       screenNumber: screen.screenNumber,
       format: screen.format,
       time,
+      date: selectedDate.displayFull,
+      dateStr: selectedDate.dateStr,
       displayText: `${time} • Screen ${screen.screenNumber} (${screen.format})`,
-      fullDisplay: `${theater.name} — Screen ${screen.screenNumber} (${screen.format}) — ${time}`,
+      fullDisplay: `${theater.name} — ${selectedDate.displayFull} — Screen ${screen.screenNumber} (${screen.format}) — ${time}`,
     });
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   const isSelected = (theaterId, screenNum, time) =>
@@ -215,11 +304,31 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
     <section className="theater-showtimes" id="theater-showtimes">
       <h2 className="theater-showtimes__title">
         <Building2 size={22} />
-        Select Theater & Showtime
+        Select Date, Theater & Showtime
       </h2>
       <p className="theater-showtimes__subtitle">
         Theaters showing <strong>{movieTitle}</strong> near you
       </p>
+
+      {/* ── Date Picker Strip ── */}
+      <div className="theater-showtimes__date-strip" id="date-picker">
+        <div className="date-strip__icon">
+          <CalendarDays size={16} />
+        </div>
+        {bookingDates.map((dateObj) => (
+          <motion.button
+            key={dateObj.dateStr}
+            className={`date-strip__btn ${selectedDate.dateStr === dateObj.dateStr ? 'active' : ''} ${dateObj.isToday ? 'today' : ''}`}
+            onClick={() => handleDateChange(dateObj)}
+            whileTap={{ scale: 0.95 }}
+            id={`date-${dateObj.dateStr}`}
+          >
+            <span className="date-strip__label">{dateObj.label}</span>
+            <span className="date-strip__num">{dateObj.dayNum}</span>
+            <span className="date-strip__month">{dateObj.month}</span>
+          </motion.button>
+        ))}
+      </div>
 
       {/* Location prompt */}
       {!locationRequested && !loading && theaters.length === 0 && (

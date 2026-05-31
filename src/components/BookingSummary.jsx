@@ -13,7 +13,9 @@ const BookingSummary = ({ onProceed }) => {
 
   // Group seats by tier for breakdown
   const seatBreakdown = selectedSeats.reduce((acc, seatId) => {
-    const row = seatId.charAt(0);
+    // Handle prefixed IDs like "N-A1" -> "A1"
+    const actualId = seatId.includes('-') ? seatId.split('-')[1] : seatId;
+    const row = actualId.charAt(0);
     const price = getSeatPrice(row);
     const key = `₹${price}`;
     if (!acc[key]) acc[key] = { count: 0, price, seats: [] };

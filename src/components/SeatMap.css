@@ -1,5 +1,6 @@
 /* ============================================
    SeatMap Component Styles
+   — Tier-grouped rows with inline pricing
    ============================================ */
 
 .seat-map {
@@ -7,20 +8,20 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-xl);
-  padding: var(--space-xl);
+  padding: var(--space-xl) var(--space-2xl);
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
 }
 
-/* Screen */
+/* ── Screen ── */
 .seat-map__screen-wrapper {
   width: 100%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 .seat-map__screen {
@@ -39,48 +40,179 @@
 .seat-map__screen-glow {
   width: 90%;
   height: 8px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(229, 9, 20, 0.3),
-    rgba(229, 9, 20, 0.5),
-    rgba(229, 9, 20, 0.3),
-    transparent
-  );
-  filter: blur(6px);
-  margin-top: -4px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+  margin-top: -2px;
 }
 
-/* Grid */
+/* ── Seat Grid ── */
 .seat-map__grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Tier Section ── */
+.seat-map__tier-section {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding-bottom: var(--space-md);
 }
 
+.seat-map__tier-section:last-child {
+  padding-bottom: 0;
+}
+
+/* Tier Header (divider + badge) */
+.seat-map__tier-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  padding: 0 24px;
+}
+
+.seat-map__tier-divider {
+  flex: 1;
+  height: 1px;
+}
+
+.tier--premium .seat-map__tier-divider {
+  background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.3), transparent);
+}
+
+.tier--standard .seat-map__tier-divider {
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.2), transparent);
+}
+
+.tier--basic .seat-map__tier-divider {
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.25), transparent);
+}
+
+/* Tier Badge */
+.seat-map__tier-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.seat-map__tier-icon {
+  font-size: 14px;
+}
+
+.tier--premium .seat-map__tier-badge {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.08));
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+}
+
+.tier--standard .seat-map__tier-badge {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+}
+
+.tier--basic .seat-map__tier-badge {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+.seat-map__tier-name {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.seat-map__tier-price {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.tier--premium .seat-map__tier-price {
+  color: #fcd34d;
+}
+
+.tier--standard .seat-map__tier-price {
+  color: #cbd5e1;
+}
+
+.tier--basic .seat-map__tier-price {
+  color: #7dd3fc;
+}
+
+/* ── Seat Rows ── */
 .seat-map__row {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  justify-content: center;
 }
 
 .seat-map__row-label {
-  width: 20px;
+  width: 22px;
   text-align: center;
-  font-size: var(--fs-xs);
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Row label color per tier */
+.tier--premium .seat-map__row-label {
+  color: #fbbf24;
+}
+
+.tier--standard .seat-map__row-label {
+  color: #94a3b8;
+}
+
+.tier--basic .seat-map__row-label {
+  color: #38bdf8;
+}
+
+/* Per-row price (right side) */
+.seat-map__row-price {
+  font-size: 10px;
   font-weight: 600;
-  color: var(--text-muted);
+  width: 40px;
+  text-align: right;
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+}
+
+.seat-map__row:hover .seat-map__row-price {
+  opacity: 1;
+}
+
+.tier--premium .seat-map__row-price {
+  color: #fbbf24;
+}
+
+.tier--standard .seat-map__row-price {
+  color: #94a3b8;
+}
+
+.tier--basic .seat-map__row-price {
+  color: #38bdf8;
 }
 
 .seat-map__seats {
   display: flex;
-  gap: 4px;
+  gap: 5px;
 }
 
-/* Individual seat */
+/* ── Individual Seat ── */
 .seat {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 6px 6px 10px 10px;
   display: flex;
   align-items: center;
@@ -128,10 +260,51 @@
   background: var(--seat-booked-dim);
   color: transparent;
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
-/* Tier indicators */
+/* ── Seat Legend ── */
+.seat-map__legend {
+  display: flex;
+  gap: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
+  width: 100%;
+  max-width: 500px;
+  justify-content: center;
+}
+
+.seat-map__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.seat-map__legend-seat {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px 4px 6px 6px;
+  flex-shrink: 0;
+}
+
+.seat-map__legend-seat.seat--available {
+  background: var(--seat-available);
+}
+
+.seat-map__legend-seat.seat--selected {
+  background: var(--seat-selected);
+  box-shadow: 0 0 6px var(--seat-selected-glow);
+}
+
+.seat-map__legend-seat.seat--booked {
+  background: var(--seat-booked-dim);
+  opacity: 0.4;
+}
+
+/* ── Stadium-only Tiers (bottom) ── */
 .seat-map__tiers {
   display: flex;
   flex-direction: column;
@@ -169,11 +342,160 @@
   color: var(--text-secondary);
 }
 
-.seat-map__tier.budget .seat-map__tier-label {
-  color: var(--seat-available);
+.seat-map__tier.basic .seat-map__tier-label {
+  color: #38bdf8;
 }
 
-/* Responsive */
+/* ── Premium Stadium Pro (unchanged) ── */
+.seat-map--stadium-pro {
+  background: #020617;
+  padding: 150px 120px 250px 120px;
+  min-height: 1600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: visible;
+}
+
+.stadium-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stadium-pitch-center {
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, #22c55e 0%, #166534 100%);
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 0 80px rgba(34, 197, 94, 0.2);
+}
+
+.cricket-ground {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pitch-strip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 100px;
+  background: #fef3c7;
+  opacity: 0.6;
+  box-shadow: 0 0 15px rgba(252, 211, 77, 0.3);
+  border-radius: 2px;
+  z-index: 2;
+}
+
+.inner-circle {
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.stadium-label {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.55rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: 2px;
+  opacity: 0.3;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+.stadium-geometry {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.geo-stand-label {
+  position: absolute;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #a855f7;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  backdrop-filter: blur(4px);
+  z-index: 15;
+}
+
+.seat-map--stadium-pro .seat {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.seat-map--stadium-pro .seat-map__tiers {
+  margin-top: 650px;
+  padding-top: var(--space-xl);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 20;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .seat-map {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .seat {
+    width: 28px;
+    height: 28px;
+    font-size: 9px;
+    border-radius: 5px 5px 8px 8px;
+  }
+
+  .seat-map__seats {
+    gap: 3px;
+  }
+
+  .seat-map__row-price {
+    display: none;
+  }
+
+  .seat-map__tier-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+}
+
 @media (max-width: 600px) {
   .seat-map {
     padding: var(--space-md);
@@ -195,7 +517,7 @@
   }
 
   .seat-map__row-label {
-    width: 14px;
+    width: 16px;
     font-size: 10px;
   }
 }
@@ -215,5 +537,17 @@
   .seat-map__row-label {
     width: 12px;
     font-size: 9px;
+  }
+
+  .seat-map__tier-header {
+    padding: 0 12px;
+  }
+
+  .seat-map__legend {
+    gap: var(--space-md);
+  }
+
+  .seat-map__legend-item {
+    font-size: 10px;
   }
 }

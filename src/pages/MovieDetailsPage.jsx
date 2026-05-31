@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Star, Clock, Play, ArrowLeft, Armchair } from 'lucide-react';
-import { fetchMovieDetails } from '../utils/api';
+import { fetchMovieDetails, POSTER_PLACEHOLDER, BACKDROP_PLACEHOLDER } from '../utils/api';
 import { useBooking } from '../context/BookingContext';
 import TheaterShowtimes from '../components/TheaterShowtimes';
 import staticMovies from '../data/movies.json';
@@ -95,7 +95,7 @@ const MovieDetailsPage = () => {
       <div
         className="movie-details__hero"
         style={{
-          backgroundImage: `url(${movie.backdrop || movie.image})`,
+          backgroundImage: `url(${movie.backdrop || movie.image || BACKDROP_PLACEHOLDER})`,
         }}
       >
         <div className="movie-details__hero-overlay" />
@@ -108,9 +108,10 @@ const MovieDetailsPage = () => {
         <div className="movie-details__hero-content container">
           <div className="movie-details__poster-wrapper">
             <img
-              src={movie.image}
+              src={movie.image || POSTER_PLACEHOLDER}
               alt={movie.title}
               className="movie-details__poster"
+              onError={(e) => { e.target.onerror = null; e.target.src = POSTER_PLACEHOLDER; }}
             />
           </div>
 

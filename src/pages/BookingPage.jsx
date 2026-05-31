@@ -13,6 +13,7 @@ import { useBooking } from '../context/BookingContext';
 import { generateSeatLayout } from '../utils/seatUtils';
 import { fetchMovieDetails } from '../utils/api';
 import staticMovies from '../data/movies.json';
+import cricketData from '../data/cricket.json';
 import './BookingPage.css';
 
 const BookingPage = () => {
@@ -20,31 +21,42 @@ const BookingPage = () => {
   const navigate = useNavigate();
   const {
     selectedMovie, selectedShowtime, seatLayout,
-    setSeatLayout, timerExpired, selectMovie, addToast,
+    setSeatLayout, timerExpired, selectMovie, selectShowtime, addToast,
   } = useBooking();
 
   const [loading, setLoading] = useState(true);
 
-  // Load movie if not already selected (direct URL access)
+  // Load movie/match if not already selected (direct URL access)
   useEffect(() => {
     const init = async () => {
-      if (!selectedMovie) {
-        try {
-          const data = await fetchMovieDetails(id);
-          selectMovie(data);
-        } catch {
-          const staticMovie = staticMovies.find((m) => m.id === Number(id));
-          if (staticMovie) selectMovie(staticMovie);
+      if (!selectedMovie || (selectedMovie.id !== id && selectedMovie.id !== Number(id))) {
+        // Check if it's a cricket match
+        if (id.startsWith('match_')) {
+          const match = cricketData.find(m => m.id === id);
+          if (match) {
+            selectMovie(match);
+            // Auto-select match time as showtime
+            selectShowtime(`${match.date} | ${match.time}`);
+          }
+        } else {
+          try {
+            const data = await fetchMovieDetails(id);
+            selectMovie(data);
+          } catch {
+            const staticMovie = staticMovies.find((m) => m.id === Number(id));
+            if (staticMovie) selectMovie(staticMovie);
+          }
         }
       }
 
-      // Generate seat layout
-      const layout = generateSeatLayout(8, 12, 0.2);
+      // Generate seat layout (Stadiums are usually larger)
+      const isStadium = id.startsWith('match_');
+      const layout = generateSeatLayout(isStadium ? 24 : 10, isStadium ? 15 : 12, 0.15);
       setSeatLayout(layout);
       setLoading(false);
     };
     init();
-  }, [id]);
+  }, [id, selectMovie, selectShowtime, setSeatLayout]);
 
   // Redirect if no showtime selected
   useEffect(() => {
@@ -104,7 +116,7 @@ const BookingPage = () => {
           {/* Left — Seat selection */}
           <div className="booking-page__seats-section">
             <SeatLegend />
-            <SeatMap layout={seatLayout} />
+            <SeatMap layout={seatLayout} isStadium={id.startsWith('match_')} />
           </div>
 
           {/* Right — Summary & Timer */}

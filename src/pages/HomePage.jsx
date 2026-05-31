@@ -1,6 +1,7 @@
 /**
- * HomePage — Location-aware movie browsing with real-time tracking
- * Fetches Now Playing, Upcoming, and Trending movies based on user's GPS region
+ * HomePage — Location-aware movie browsing with real-time screening data
+ * Uses TMDB discover endpoint with theatrical release type filtering
+ * and regional language prioritization based on user's city.
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
@@ -10,7 +11,11 @@ import SearchBar from '../components/SearchBar';
 import FilterBar from '../components/FilterBar';
 import SkeletonCard from '../components/SkeletonCard';
 import LocationIndicator from '../components/LocationIndicator';
-import { fetchNowPlaying, fetchUpcoming, fetchTrending, searchMovies } from '../utils/api';
+import { useLocationContext } from '../context/LocationContext';
+import {
+  fetchNowScreening, fetchUpcoming, fetchTrending, searchMovies,
+  getLanguageForCity, getLanguageLabel, BACKDROP_PLACEHOLDER,
+} from '../utils/api';
 import useGeolocation from '../utils/useGeolocation';
 import staticMovies from '../data/movies.json';
 import './HomePage.css';
@@ -18,9 +23,19 @@ import './HomePage.css';
 const HomePage = () => {
   // Location tracking
   const {
-    displayLocation, tmdbRegion, loading: locationLoading,
-    error: locationError, permissionState, fetchLocation,
+    displayLocation: gpsLocation, tmdbRegion: gpsRegion, loading: locationLoading,
+    error: locationError, permissionState, fetchLocation, location: gpsLocationData,
   } = useGeolocation();
+
+  const { displayLocation: manualLocation, isManual, selectedCity } = useLocationContext();
+
+  const displayLocation = manualLocation || gpsLocation;
+  // For manual Indian city selections, use 'IN' as the region code
+  const tmdbRegion = isManual ? 'IN' : gpsRegion;
+
+  // Derive regional language from city (manual or GPS-detected)
+  const activeCity = isManual ? selectedCity : gpsLocationData?.city || '';
+  const regionalLanguage = activeCity ? getLanguageForCity(activeCity) : '';
 
   // Movie data states
   const [nowPlaying, setNowPlaying] = useState([]);
@@ -30,19 +45,18 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [activeGenre, setActiveGenre] = useState('All');
-  const [activeSection, setActiveSection] = useState('now_playing'); // now_playing | upcoming | trending
+  const [activeSection, setActiveSection] = useState('now_playing');
   const [lastRefresh, setLastRefresh] = useState(null);
 
   /**
-   * Load all movie sections — region-aware
-   * Triggered on mount and when tmdbRegion changes
+   * Load all movie sections — region & language aware
+   * Uses /discover with release_type=2|3 for accurate theatrical data
    */
-  const loadAllMovies = useCallback(async (region = '') => {
+  const loadAllMovies = useCallback(async (region = '', language = '') => {
     setLoading(true);
     try {
-      // Fetch all 3 sections in parallel for speed
       const [npData, upData, trData] = await Promise.allSettled([
-        fetchNowPlaying(1, region),
+        fetchNowScreening(region || 'IN', language),
         fetchUpcoming(1, region),
         fetchTrending('day'),
       ]);
@@ -62,12 +76,12 @@ const HomePage = () => {
     loadAllMovies();
   }, []);
 
-  // Re-fetch when user's location/region changes
+  // Re-fetch when user's location/region or regional language changes
   useEffect(() => {
-    if (tmdbRegion) {
-      loadAllMovies(tmdbRegion);
+    if (tmdbRegion || regionalLanguage) {
+      loadAllMovies(tmdbRegion, regionalLanguage);
     }
-  }, [tmdbRegion, loadAllMovies]);
+  }, [tmdbRegion, regionalLanguage, loadAllMovies]);
 
   // Handle search with debounce
   useEffect(() => {
@@ -81,7 +95,6 @@ const HomePage = () => {
         const results = await searchMovies(searchQuery, tmdbRegion);
         setSearchResults(results);
       } catch {
-        // Fallback to local filter
         const local = [...nowPlaying, ...upcoming, ...trending].filter(m =>
           m.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
@@ -94,9 +107,7 @@ const HomePage = () => {
 
   // Get the active movie list based on selected section
   const activeMovies = useMemo(() => {
-    // If searching, show search results
     if (searchQuery.trim()) return searchResults;
-
     switch (activeSection) {
       case 'upcoming': return upcoming;
       case 'trending': return trending;
@@ -120,10 +131,13 @@ const HomePage = () => {
 
   // Section tabs config
   const sectionTabs = [
-    { id: 'now_playing', label: 'Now Playing', icon: Film, count: nowPlaying.length },
+    { id: 'now_playing', label: 'Now Screening', icon: Film, count: nowPlaying.length },
     { id: 'upcoming', label: 'Coming Soon', icon: CalendarDays, count: upcoming.length },
     { id: 'trending', label: 'Trending Today', icon: Flame, count: trending.length },
   ];
+
+  // Regional language info for display
+  const regionalLabel = regionalLanguage ? getLanguageLabel(regionalLanguage) : '';
 
   return (
     <div className="home-page" id="home-page">
@@ -134,7 +148,7 @@ const HomePage = () => {
           style={{
             backgroundImage: featured.backdrop
               ? `url(${featured.backdrop})`
-              : 'none',
+              : `url(${BACKDROP_PLACEHOLDER})`,
           }}
         >
           <div className="hero__overlay" />
@@ -147,7 +161,7 @@ const HomePage = () => {
             >
               <span className="hero__badge">
                 <Sparkles size={14} />
-                Featured{displayLocation ? ` in ${displayLocation}` : ''}
+                {displayLocation ? `Now Screening in ${displayLocation}` : 'Now Screening'}
               </span>
               <h1 className="hero__title">{featured.title}</h1>
               <p className="hero__desc">{featured.description?.slice(0, 160)}...</p>
@@ -156,6 +170,14 @@ const HomePage = () => {
                 {featured.genre?.map((g) => (
                   <span key={g} className="hero__genre">{g}</span>
                 ))}
+                {featured.languageLabel && (
+                  <span className="hero__lang-badge">{featured.languageLabel}</span>
+                )}
+                {featured.releaseDate && (
+                  <span className="hero__release">
+                    📅 {new Date(featured.releaseDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                  </span>
+                )}
               </div>
             </motion.div>
           </div>
@@ -185,7 +207,7 @@ const HomePage = () => {
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
 
-        {/* Section Tabs — Now Playing / Coming Soon / Trending */}
+        {/* Section Tabs — Now Screening / Coming Soon / Trending */}
         {!searchQuery.trim() && (
           <div className="home-page__section-tabs">
             {sectionTabs.map((tab) => {
@@ -218,7 +240,15 @@ const HomePage = () => {
           ) : (
             <h2 className="home-page__section-title">
               {activeSection === 'now_playing' && (
-                <><TrendingUp size={22} className="home-page__section-icon" /> Now Playing{displayLocation ? ` in ${displayLocation}` : ''}</>
+                <>
+                  <TrendingUp size={22} className="home-page__section-icon" />
+                  Now Screening{displayLocation ? ` in ${displayLocation}` : ''}
+                  {regionalLabel && activeSection === 'now_playing' && (
+                    <span className="home-page__region-tag">
+                      {regionalLabel} + All India
+                    </span>
+                  )}
+                </>
               )}
               {activeSection === 'upcoming' && (
                 <><CalendarDays size={22} className="home-page__section-icon" /> Coming Soon{displayLocation ? ` in ${displayLocation}` : ''}</>

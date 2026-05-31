@@ -87,6 +87,66 @@
 }
 
 /* ============================================
+   Light Theme Overrides
+   ============================================ */
+[data-theme="light"] {
+  /* === Colors === */
+  --bg-primary: #f5f5fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f0f0f5;
+  --bg-elevated: #e8e8f0;
+  --bg-input: #f0f0f5;
+
+  --accent: #e50914;
+  --accent-hover: #cc0812;
+  --accent-glow: rgba(229, 9, 20, 0.15);
+  --accent-subtle: rgba(229, 9, 20, 0.06);
+
+  --gold: #d4a017;
+  --gold-glow: rgba(212, 160, 23, 0.15);
+
+  --text-primary: #1a1a2e;
+  --text-secondary: #555570;
+  --text-muted: #8a8a9e;
+
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.15);
+
+  /* Seat colors */
+  --seat-available: #16a34a;
+  --seat-available-glow: rgba(22, 163, 74, 0.2);
+  --seat-selected: #ca8a04;
+  --seat-selected-glow: rgba(202, 138, 4, 0.25);
+  --seat-booked: #dc2626;
+  --seat-booked-dim: rgba(220, 38, 38, 0.3);
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.06);
+
+  /* === Shadows (lighter for light mode) === */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+  --shadow-gold: 0 0 12px var(--gold-glow);
+}
+
+/* Light mode scrollbar */
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* ============================================
    Reset & Base
    ============================================ */
 *,
@@ -98,9 +158,15 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Only apply smooth scroll for anchor navigations, not during regular scroll */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -111,6 +177,7 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Scrollbar */
@@ -140,6 +207,7 @@ ul, ol {
 img {
   max-width: 100%;
   display: block;
+  content-visibility: auto;
 }
 
 button {

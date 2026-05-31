@@ -2,7 +2,7 @@
  * AuthPage — Login / Sign Up with toggle, form validation, and localStorage auth
  */
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LogIn, UserPlus, Mail, Lock, User, Eye, EyeOff,
@@ -12,6 +12,8 @@ import './AuthPage.css';
 
 const AuthPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/';
   const [mode, setMode] = useState('login'); // login | signup
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -97,7 +99,8 @@ const AuthPage = () => {
     }));
 
     setLoading(false);
-    navigate('/');
+    // Redirect to intended page or home
+    navigate(from, { replace: true });
   };
 
   const toggleMode = () => {
@@ -180,7 +183,8 @@ const AuthPage = () => {
                       <input
                         type="text" id="auth-name" name="name"
                         value={form.name} onChange={handleChange}
-                        placeholder="Abdul Kalam"
+                        placeholder="Enter your name"
+                        autoComplete="off"
                       />
                       {errors.name && <span className="auth-field__error">{errors.name}</span>}
                     </div>

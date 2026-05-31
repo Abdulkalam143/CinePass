@@ -1,0 +1,67 @@
+[
+  {
+    "id": "match_001",
+    "title": "IPL 2024: MI vs CSK",
+    "teams": ["Mumbai Indians", "Chennai Super Kings"],
+    "date": "2024-05-15",
+    "time": "19:30",
+    "venue": "Wankhede Stadium, Mumbai",
+    "image": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1200&q=80",
+    "category": "IPL",
+    "price": 800,
+    "rating": 4.9,
+    "description": "The El Clasico of IPL is back! Watch five-time champions Mumbai Indians take on the legendary Chennai Super Kings in a high-octane clash at the historic Wankhede Stadium."
+  },
+  {
+    "id": "match_002",
+    "title": "T20 World Cup: IND vs PAK",
+    "teams": ["India", "Pakistan"],
+    "date": "2024-06-09",
+    "time": "18:00",
+    "venue": "Narendra Modi Stadium, Ahmedabad",
+    "image": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=1200&q=80",
+    "category": "International",
+    "price": 1500,
+    "rating": 5.0,
+    "description": "Experience the greatest rivalry in world sports! India faces Pakistan in a crucial T20 World Cup fixture. A sold-out Narendra Modi Stadium awaits this historic encounter."
+  },
+  {
+    "id": "match_003",
+    "title": "IPL 2024: RCB vs KKR",
+    "teams": ["Royal Challengers Bangalore", "Kolkata Knight Riders"],
+    "date": "2024-05-20",
+    "time": "19:30",
+    "venue": "M. Chinnaswamy Stadium, Bangalore",
+    "image": "https://images.unsplash.com/photo-1624194638807-ca9082f4460d?auto=format&fit=crop&w=1200&q=80",
+    "category": "IPL",
+    "price": 950,
+    "rating": 4.7,
+    "description": "Expect fireworks as Kohli's RCB takes on Iyer's KKR at the batting paradise of Chinnaswamy. A high-scoring thriller is on the cards."
+  },
+  {
+    "id": "match_004",
+    "title": "IPL 2024: GT vs RR",
+    "teams": ["Gujarat Titans", "Rajasthan Royals"],
+    "date": "2024-05-18",
+    "time": "15:30",
+    "venue": "Narendra Modi Stadium, Ahmedabad",
+    "image": "https://images.unsplash.com/photo-1589133094406-8b2c22201d1c?auto=format&fit=crop&w=1200&q=80",
+    "category": "IPL",
+    "price": 600,
+    "rating": 4.5,
+    "description": "A clash of the titans! The 2022 champions GT host the inaugural champions RR in an afternoon spectacle."
+  },
+  {
+    "id": "match_005",
+    "title": "Women's Premier League: DC vs UPW",
+    "teams": ["Delhi Capitals", "UP Warriorz"],
+    "date": "2024-05-12",
+    "time": "19:30",
+    "venue": "Arun Jaitley Stadium, Delhi",
+    "image": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1200&q=80",
+    "category": "WPL",
+    "price": 400,
+    "rating": 4.6,
+    "description": "Watch the rising stars of women's cricket battle it out in the capital. Delhi Capitals look to defend their home turf against the Warriorz."
+  }
+]
