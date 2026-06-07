@@ -271,7 +271,11 @@
 /* Responsive */
 @media (max-width: 768px) {
   .header__container {
-    padding: 0 var(--space-md);
+    padding: 0 12px;
+  }
+
+  .header__actions {
+    gap: 6px;
   }
 
   .header__logo {
@@ -293,7 +297,6 @@
   }
 
   /* Hide redundant actions on mobile */
-  .header__theme-toggle,
   .header__logout-btn,
   .header__user-name-text,
   .header__book-btn span,
