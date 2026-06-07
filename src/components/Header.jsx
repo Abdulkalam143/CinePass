@@ -83,7 +83,7 @@ const Header = () => {
             <div className="header__user">
               <Link to="/profile" className="header__user-name" title="View Profile">
                 <User size={14} />
-                {user.name}
+                <span className="header__user-name-text">{user.name}</span>
               </Link>
               <button className="header__logout-btn" onClick={handleLogout} title="Logout">
                 <LogOut size={16} />
