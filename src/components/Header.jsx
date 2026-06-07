@@ -44,7 +44,7 @@ const Header = () => {
     <header className="header" id="main-header">
       <div className="header__container container">
         {/* Logo */}
-        <Link to="/" className="header__logo" id="header-logo">
+        <Link to="/" className="header__logo" id="header-logo" onClick={() => setMobileMenuOpen(false)}>
           <div className="header__logo-icon">
             <Film size={24} />
           </div>
