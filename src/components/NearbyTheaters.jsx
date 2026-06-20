@@ -2,7 +2,7 @@
  * NearbyTheaters — Shows theaters near user's location using GPS
  * Uses OpenStreetMap Overpass API (free, no key needed) to find cinemas
  */
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Navigation, Loader, AlertCircle, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import './NearbyTheaters.css';

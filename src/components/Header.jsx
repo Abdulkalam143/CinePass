@@ -86,7 +86,7 @@ const Header = () => {
   });
 
   const location = useLocation();
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
   const { t } = useTranslation();
 
   // Persist notifications
@@ -102,11 +102,17 @@ const Header = () => {
     if (session) {
       try {
         const parsed = JSON.parse(session);
-        if (parsed.loggedIn) setUser(parsed);
+        if (parsed.loggedIn) {
+          setTimeout(() => {
+            setUser(parsed);
+          }, 0);
+        }
       } catch { /* ignore */ }
     }
     // Close notifications panel on page change
-    setShowNotifications(false);
+    setTimeout(() => {
+      setShowNotifications(false);
+    }, 0);
   }, [location.pathname]); // Re-check on page change
 
   // Handle click outside to close notifications dropdown

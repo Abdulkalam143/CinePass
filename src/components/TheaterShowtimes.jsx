@@ -193,17 +193,6 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
   const bookingDates = useMemo(() => generateDates(5), []);
   const [selectedDate, setSelectedDate] = useState(bookingDates[0]);
 
-  // Check if location was previously granted
-  useEffect(() => {
-    if (navigator.permissions) {
-      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-        if (result.state === 'granted') {
-          findTheaters();
-        }
-      }).catch(() => {});
-    }
-  }, [movieId]);
-
   const findTheaters = useCallback(() => {
     if (!navigator.geolocation) {
       setError('Geolocation not supported');
@@ -250,7 +239,18 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
       },
       { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 }
     );
-  }, [movieId]);
+  }, [movieId, bookingDates, selectedDate]);
+
+  // Check if location was previously granted
+  useEffect(() => {
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+        if (result.state === 'granted') {
+          findTheaters();
+        }
+      }).catch(() => {});
+    }
+  }, [movieId, findTheaters]);
 
   // When selected date changes, regenerate showtimes for all theaters
   useEffect(() => {
@@ -261,11 +261,13 @@ const TheaterShowtimes = ({ movieId, movieTitle, onSelectShowtime }) => {
         screens: generateTheaterScreens(theater.id, movieId, dateSeed),
       })).filter(t => t.screens.length > 0);
 
-      setTheaters(theatersWithScreens);
-      // Clear selection when date changes
-      setSelectedTheater(null);
-      setSelectedScreen(null);
-      setSelectedTime('');
+      setTimeout(() => {
+        setTheaters(theatersWithScreens);
+        // Clear selection when date changes
+        setSelectedTheater(null);
+        setSelectedScreen(null);
+        setSelectedTime('');
+      }, 0);
     }
   }, [selectedDate, rawCinemas, movieId, bookingDates]);
 

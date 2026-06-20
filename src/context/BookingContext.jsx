@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * BookingContext — Global state management for the booking flow
  * Manages selected movie, seats, showtime, timer, and booking history
@@ -36,6 +37,22 @@ export const BookingProvider = ({ children }) => {
   const [lastBooking, setLastBooking] = useState(null);
   // Booking history
   const [bookingHistory, setBookingHistory] = useState(getBookings());
+
+  /**
+   * Toast notification system
+   */
+  const addToast = useCallback((message, type = 'info') => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, message, type }]);
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  }, []);
+
+  const removeToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
 
   /**
    * Select a movie for booking
@@ -103,7 +120,7 @@ export const BookingProvider = ({ children }) => {
     clearSeats();
     setTimerExpired(true);
     addToast('⏰ Session expired! Your selected seats have been released.', 'warning');
-  }, [clearSeats]);
+  }, [clearSeats, addToast]);
 
   /**
    * Confirm booking — save to localStorage
@@ -130,7 +147,7 @@ export const BookingProvider = ({ children }) => {
     }
 
     return booking;
-  }, [selectedMovie, selectedShowtime, selectedSeats, totalPrice]);
+  }, [selectedMovie, selectedShowtime, selectedSeats, totalPrice, addToast]);
 
   /**
    * Full reset after booking
@@ -143,22 +160,6 @@ export const BookingProvider = ({ children }) => {
     setTotalPrice(0);
     setTimerActive(false);
     setTimerExpired(false);
-  }, []);
-
-  /**
-   * Toast notification system
-   */
-  const addToast = useCallback((message, type = 'info') => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    // Auto-remove after 4 seconds
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 4000);
-  }, []);
-
-  const removeToast = useCallback((id) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
   const value = {

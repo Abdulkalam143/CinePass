@@ -16,7 +16,7 @@ const PRICING = {
 };
 
 // For stadium (cricket), use separate pricing
-const STADIUM_PRICING = {
+export const STADIUM_PRICING = {
   basic:    { rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],                     price: 500,  label: 'Basic' },
   standard: { rows: ['I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'],                     price: 1000, label: 'Standard' },
   premium:  { rows: ['Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],           price: 2000, label: 'Premium' },

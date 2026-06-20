@@ -8,6 +8,16 @@ import './SplashScreen.css';
 
 const SplashScreen = ({ onComplete }) => {
   const [phase, setPhase] = useState('enter'); // enter → reveal → exit
+  const [particles] = useState(() => {
+    return [...Array(20)].map((_, i) => ({
+      id: i,
+      px: `${Math.random() * 100}%`,
+      py: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 2}s`,
+      size: `${2 + Math.random() * 4}px`,
+      duration: `${2 + Math.random() * 3}s`,
+    }));
+  });
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase('reveal'), 800);
@@ -45,16 +55,16 @@ const SplashScreen = ({ onComplete }) => {
 
           {/* Particles */}
           <div className="splash__particles">
-            {[...Array(20)].map((_, i) => (
+            {particles.map((p) => (
               <div
-                key={i}
+                key={p.id}
                 className="splash__particle"
                 style={{
-                  '--px': `${Math.random() * 100}%`,
-                  '--py': `${Math.random() * 100}%`,
-                  '--delay': `${Math.random() * 2}s`,
-                  '--size': `${2 + Math.random() * 4}px`,
-                  '--duration': `${2 + Math.random() * 3}s`,
+                  '--px': p.px,
+                  '--py': p.py,
+                  '--delay': p.delay,
+                  '--size': p.size,
+                  '--duration': p.duration,
                 }}
               />
             ))}

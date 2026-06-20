@@ -75,21 +75,29 @@ const HomePage = () => {
 
   // Initial load (no region yet)
   useEffect(() => {
-    loadAllMovies();
-  }, []);
+    const timer = setTimeout(() => {
+      loadAllMovies();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [loadAllMovies]);
 
   // Re-fetch when user's location/region or regional language changes
   useEffect(() => {
     if (tmdbRegion || regionalLanguage) {
-      loadAllMovies(tmdbRegion, regionalLanguage);
+      const timer = setTimeout(() => {
+        loadAllMovies(tmdbRegion, regionalLanguage);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [tmdbRegion, regionalLanguage, loadAllMovies]);
 
   // Handle search with debounce
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setSearchResults([]);
-      return;
+      const timer = setTimeout(() => {
+        setSearchResults([]);
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     const timer = setTimeout(async () => {
@@ -97,7 +105,7 @@ const HomePage = () => {
         const results = await searchMovies(searchQuery, tmdbRegion);
         setSearchResults(results);
       } catch {
-        const local = [...nowPlaying, ...upcoming, ...trending].filter(m =>
+        const local = [...nowPlaying, ...trending, ...upcoming].filter(m =>
           m.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setSearchResults(local);
@@ -105,7 +113,7 @@ const HomePage = () => {
     }, 400);
 
     return () => clearTimeout(timer);
-  }, [searchQuery, tmdbRegion]);
+  }, [searchQuery, tmdbRegion, nowPlaying, trending, upcoming]);
 
   // Get the active movie list based on selected section
   const activeMovies = useMemo(() => {

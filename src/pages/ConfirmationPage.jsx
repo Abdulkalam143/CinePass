@@ -63,6 +63,15 @@ const ConfirmationPage = () => {
   const [processing, setProcessing] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const convenienceFee = selectedSeats.length * 30;
+  const grandTotal = totalPrice + convenienceFee;
+
+  // Generate QR code for UPI payment
+  const qrCodeSVG = useMemo(() => {
+    const upiString = generateUPIString(grandTotal);
+    return generateQRCodeSVG(upiString, 200);
+  }, [grandTotal]);
+
   // Redirect if no booking data
   if (!selectedMovie || selectedSeats.length === 0) {
     return (
@@ -73,15 +82,6 @@ const ConfirmationPage = () => {
       </div>
     );
   }
-
-  const convenienceFee = selectedSeats.length * 30;
-  const grandTotal = totalPrice + convenienceFee;
-
-  // Generate QR code for UPI payment
-  const qrCodeSVG = useMemo(() => {
-    const upiString = generateUPIString(grandTotal);
-    return generateQRCodeSVG(upiString, 200);
-  }, [grandTotal]);
 
   const handleFieldChange = (e) => {
     const { name, value } = e.target;

@@ -1,7 +1,7 @@
 /**
  * PaymentSuccessPage — Simulated payment success with animations
  */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle, Home, Download, Ticket, Calendar, MapPin } from 'lucide-react';
@@ -14,12 +14,10 @@ const PaymentSuccessPage = () => {
   const navigate = useNavigate();
   const { lastBooking, resetBooking } = useBooking();
   const { t } = useTranslation();
-  const [confetti, setConfetti] = useState([]);
-
-  // Generate confetti pieces
-  useEffect(() => {
+  // Generate confetti pieces statically on initialization
+  const [confetti] = useState(() => {
     const colors = ['#e50914', '#eab308', '#22c55e', '#3b82f6', '#a855f7', '#f472b6'];
-    const pieces = Array.from({ length: 50 }, (_, i) => ({
+    return Array.from({ length: 50 }, (_, i) => ({
       id: i,
       color: colors[Math.floor(Math.random() * colors.length)],
       left: Math.random() * 100,
@@ -27,8 +25,7 @@ const PaymentSuccessPage = () => {
       duration: 2 + Math.random() * 3,
       size: 6 + Math.random() * 8,
     }));
-    setConfetti(pieces);
-  }, []);
+  });
 
   const handleGoHome = () => {
     resetBooking();

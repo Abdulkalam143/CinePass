@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Bell, Tag, Info, CreditCard, Sparkles,
+  Tag, Info, CreditCard, Sparkles,
   ShieldAlert, Percent, Gift, Trash2,
   Copy, Check, X, BellOff
 } from 'lucide-react';
@@ -26,8 +26,7 @@ const NotificationDropdown = ({
   onMarkRead,
   onDismiss,
   onMarkAllRead,
-  onClearAll,
-  onClose
+  onClearAll
 }) => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('all'); // all | alert | offer

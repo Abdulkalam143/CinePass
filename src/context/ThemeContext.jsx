@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * ThemeContext — Global theme management (Light / Dark mode)
  * Persists preference in localStorage and respects system setting

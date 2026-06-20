@@ -38,28 +38,6 @@ const useGeolocation = () => {
   const [error, setError] = useState(null);
   const [permissionState, setPermissionState] = useState('prompt'); // prompt | granted | denied
 
-  // Check permission state on mount
-  useEffect(() => {
-    if (navigator.permissions) {
-      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-        setPermissionState(result.state);
-        result.onchange = () => setPermissionState(result.state);
-
-        // Auto-fetch if previously granted
-        if (result.state === 'granted') {
-          fetchLocation();
-        }
-      }).catch(() => {
-        // permissions API not supported, try to load from cache
-        const cached = loadCachedLocation();
-        if (cached) {
-          setCoordinates(cached.coordinates);
-          setLocation(cached.location);
-        }
-      });
-    }
-  }, []);
-
   // Load cached location from localStorage (valid for 30 minutes)
   const loadCachedLocation = () => {
     try {
@@ -148,6 +126,28 @@ const useGeolocation = () => {
       }
     );
   }, []);
+
+  // Check permission state on mount
+  useEffect(() => {
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+        setPermissionState(result.state);
+        result.onchange = () => setPermissionState(result.state);
+
+        // Auto-fetch if previously granted
+        if (result.state === 'granted') {
+          fetchLocation();
+        }
+      }).catch(() => {
+        // permissions API not supported, try to load from cache
+        const cached = loadCachedLocation();
+        if (cached) {
+          setCoordinates(cached.coordinates);
+          setLocation(cached.location);
+        }
+      });
+    }
+  }, [fetchLocation]);
 
   /**
    * Get short display string like "Chennai, India"

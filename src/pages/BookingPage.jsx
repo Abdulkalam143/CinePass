@@ -58,7 +58,7 @@ const BookingPage = () => {
       setLoading(false);
     };
     init();
-  }, [id, selectMovie, selectShowtime, setSeatLayout]);
+  }, [id, selectMovie, selectShowtime, setSeatLayout, selectedMovie]);
 
   // Redirect if no showtime selected
   useEffect(() => {
@@ -66,7 +66,7 @@ const BookingPage = () => {
       addToast(t('booking.selectShowtime'), 'warning');
       navigate(`/movie/${id}`);
     }
-  }, [loading, selectedShowtime]);
+  }, [loading, selectedShowtime, addToast, id, navigate, t]);
 
   const handleProceed = () => {
     navigate('/confirmation');

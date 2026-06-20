@@ -25,6 +25,13 @@ const MovieDetailsPage = () => {
   // Stores the full theater+screen+time selection
   const [theaterSelection, setTheaterSelection] = useState(null);
 
+  // Track previous ID to reset selection when movie changes
+  const [prevId, setPrevId] = useState(id);
+  if (id !== prevId) {
+    setPrevId(id);
+    setTheaterSelection(null);
+  }
+
   useEffect(() => {
     const loadMovie = async () => {
       setLoading(true);
@@ -42,9 +49,7 @@ const MovieDetailsPage = () => {
       setLoading(false);
     };
     loadMovie();
-    // Reset theater selection when movie changes
-    setTheaterSelection(null);
-  }, [id]);
+  }, [id, selectMovie]);
 
   /**
    * Handle theater showtime selection from TheaterShowtimes component
@@ -55,13 +60,7 @@ const MovieDetailsPage = () => {
     selectShowtime(selection.fullDisplay);
   };
 
-  /**
-   * Handle fallback showtime selection (when theaters aren't loaded)
-   */
-  const handleFallbackShowtimeSelect = (time) => {
-    setTheaterSelection(null);
-    selectShowtime(time);
-  };
+
 
   const handleBookNow = () => {
     if (!selectedShowtime) return;

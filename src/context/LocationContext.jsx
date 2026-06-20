@@ -1,8 +1,9 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * LocationContext — Manages the user's selected location (City/State)
  * Supports both auto-detection (GPS) and manual selection
  */
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const LocationContext = createContext(null);
 
@@ -15,24 +16,41 @@ export const useLocationContext = () => {
 };
 
 export const LocationProvider = ({ children }) => {
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedState, setSelectedState] = useState(null);
-  const [isManual, setIsManual] = useState(false);
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem('cinepass_manual_location');
-    if (saved) {
-      try {
-        const { city, state } = JSON.parse(saved);
-        setSelectedCity(city);
-        setSelectedState(state);
-        setIsManual(true);
-      } catch (e) {
-        console.error('Failed to load manual location', e);
+  const [selectedCity, setSelectedCity] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cinepass_manual_location');
+      if (saved) {
+        const { city } = JSON.parse(saved);
+        return city || null;
       }
+    } catch (e) {
+      console.error('Failed to load manual location', e);
     }
-  }, []);
+    return null;
+  });
+
+  const [selectedState, setSelectedState] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cinepass_manual_location');
+      if (saved) {
+        const { state } = JSON.parse(saved);
+        return state || null;
+      }
+    } catch (e) {
+      console.error('Failed to load manual location', e);
+    }
+    return null;
+  });
+
+  const [isManual, setIsManual] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cinepass_manual_location');
+      return !!saved;
+    } catch (e) {
+      console.error('Failed to load manual location', e);
+    }
+    return false;
+  });
 
   const setManualLocation = (city, state) => {
     setSelectedCity(city);

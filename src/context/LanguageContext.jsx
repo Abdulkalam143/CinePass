@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * LanguageContext.jsx
  * Global context for application internationalization (i18n).

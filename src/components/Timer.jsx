@@ -19,7 +19,7 @@ const Timer = () => {
   // Start/stop timer based on timerActive state
   useEffect(() => {
     if (timerActive && selectedSeats.length > 0) {
-      setTimeLeft(HOLD_DURATION); // Reset on start
+      setTimeout(() => setTimeLeft(HOLD_DURATION), 0); // Reset on start
 
       intervalRef.current = setInterval(() => {
         setTimeLeft((prev) => {
@@ -34,7 +34,7 @@ const Timer = () => {
     } else {
       // Timer inactive — reset
       clearInterval(intervalRef.current);
-      setTimeLeft(HOLD_DURATION);
+      setTimeout(() => setTimeLeft(HOLD_DURATION), 0);
     }
 
     return () => clearInterval(intervalRef.current);

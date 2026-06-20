@@ -3,7 +3,7 @@
  */
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Search, Filter, Calendar, MapPin, Sparkles } from 'lucide-react';
+import { Trophy, Search, Sparkles } from 'lucide-react';
 import MatchCard from '../components/MatchCard';
 import LocationIndicator from '../components/LocationIndicator';
 import useGeolocation from '../utils/useGeolocation';

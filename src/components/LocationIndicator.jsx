@@ -3,7 +3,7 @@
  * Allows manual location refresh and displays region-specific context
  */
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Navigation, RefreshCw, Loader, X, Globe, ChevronDown } from 'lucide-react';
+import { MapPin, Navigation, RefreshCw, Loader, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { useLocationContext } from '../context/LocationContext';
 import LocationSelector from './LocationSelector';
@@ -12,10 +12,7 @@ import './LocationIndicator.css';
 const LocationIndicator = ({
   displayLocation: gpsLocation,
   loading,
-  error,
-  permissionState,
   onRequestLocation,
-  tmdbRegion,
 }) => {
   const { displayLocation: manualLocation, isManual } = useLocationContext();
   const [selectorOpen, setSelectorOpen] = useState(false);

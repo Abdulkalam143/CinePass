@@ -38,17 +38,6 @@ const formatReleaseDate = (dateStr, lang = 'en') => {
 };
 
 /**
- * Check if a movie is currently in theaters (released within the last 45 days)
- */
-const isCurrentlyScreening = (dateStr) => {
-  if (!dateStr) return false;
-  const releaseDate = new Date(dateStr + 'T00:00:00');
-  const now = new Date();
-  const diffDays = (now - releaseDate) / (1000 * 60 * 60 * 24);
-  return diffDays >= -7 && diffDays <= 45; // Includes 7-day advance + 45-day window
-};
-
-/**
  * Check if a movie is newly released (within last 7 days)
  */
 const isNewRelease = (dateStr) => {
@@ -61,7 +50,6 @@ const isNewRelease = (dateStr) => {
 
 const MovieCard = ({ movie, index = 0 }) => {
   const { t, language } = useTranslation();
-  const screening = isCurrentlyScreening(movie.releaseDate);
   const newRelease = isNewRelease(movie.releaseDate);
 
   return (

@@ -5,7 +5,6 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
-import { getSeatTier, getSeatPrice } from '../utils/seatUtils';
 import './SeatMap.css';
 
 /**

@@ -2,11 +2,11 @@
  * ProfilePage — User profile view with editable details
  * Allows users to update name, email, phone, and password
  */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  User, Mail, Phone, Lock, Camera, Save,
+  User, Mail, Phone, Lock, Save,
   ArrowLeft, Eye, EyeOff, CheckCircle, AlertCircle,
   Edit3, Shield, Calendar, Ticket,
 } from 'lucide-react';
@@ -24,27 +24,11 @@ const ProfilePage = () => {
   const [errors, setErrors] = useState({});
 
   // Load session data
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
-  });
-
-  // Original data for cancel
-  const [originalData, setOriginalData] = useState({});
-
-  // Stats
-  const [stats, setStats] = useState({ bookings: 0, memberSince: '' });
-
-  useEffect(() => {
+  const [userData, setUserData] = useState(() => {
     const session = JSON.parse(localStorage.getItem('cinepass_session') || '{}');
     const users = JSON.parse(localStorage.getItem('cinepass_users') || '[]');
     const user = users.find((u) => u.email === session.email);
-
-    const data = {
+    return {
       name: user?.name || session.name || '',
       email: session.email || '',
       phone: user?.phone || '',
@@ -52,19 +36,23 @@ const ProfilePage = () => {
       newPassword: '',
       confirmPassword: '',
     };
-    setUserData(data);
-    setOriginalData(data);
+  });
 
-    // Calculate stats
+  // Original data for cancel
+  const [originalData, setOriginalData] = useState(userData);
+
+  // Calculate stats dynamically on render
+  const stats = (() => {
+    const session = JSON.parse(localStorage.getItem('cinepass_session') || '{}');
     const bookings = JSON.parse(localStorage.getItem('cinepass_bookings') || '[]');
     const userBookings = bookings.filter((b) => b.email === session.email);
-    setStats({
+    return {
       bookings: userBookings.length,
       memberSince: session.timestamp
         ? new Date(session.timestamp).toLocaleDateString(language === 'en' ? 'en-US' : language, { month: 'long', year: 'numeric' })
         : 'Recently',
-    });
-  }, [language]);
+    };
+  })();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
