@@ -13,6 +13,7 @@ import { useBooking } from '../context/BookingContext';
 import { generateSeatLayout } from '../utils/seatUtils';
 import { fetchMovieDetails } from '../utils/api';
 import staticMovies from '../data/movies.json';
+import { useTranslation } from '../context/LanguageContext';
 import cricketData from '../data/cricket.json';
 import './BookingPage.css';
 
@@ -23,6 +24,7 @@ const BookingPage = () => {
     selectedMovie, selectedShowtime, seatLayout,
     setSeatLayout, timerExpired, selectMovie, selectShowtime, addToast,
   } = useBooking();
+  const { t } = useTranslation();
 
   const [loading, setLoading] = useState(true);
 
@@ -61,7 +63,7 @@ const BookingPage = () => {
   // Redirect if no showtime selected
   useEffect(() => {
     if (!loading && !selectedShowtime) {
-      addToast('Please select a showtime first', 'warning');
+      addToast(t('booking.selectShowtime'), 'warning');
       navigate(`/movie/${id}`);
     }
   }, [loading, selectedShowtime]);
@@ -91,7 +93,7 @@ const BookingPage = () => {
         <div className="booking-page__header">
           <button className="booking-page__back" onClick={() => navigate(-1)} id="booking-back-btn">
             <ArrowLeft size={20} />
-            Back
+            {t('booking.back')}
           </button>
           <div className="booking-page__header-info">
             <h1 className="booking-page__title">{selectedMovie?.title}</h1>
@@ -106,8 +108,8 @@ const BookingPage = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <AlertCircle size={18} />
-            <span>Your session has expired. Please select seats again.</span>
+             <AlertCircle size={18} />
+             <span>{t('booking.sessionExpired')}</span>
           </motion.div>
         )}
 

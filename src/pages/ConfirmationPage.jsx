@@ -13,6 +13,7 @@ import {
 import { useBooking } from '../context/BookingContext';
 import { formatPrice, getSeatPrice } from '../utils/seatUtils';
 import { generateQRCodeSVG, generateUPIString } from '../utils/qrcode';
+import { useTranslation } from '../context/LanguageContext';
 import './ConfirmationPage.css';
 
 /* ── Payment method configs ── */
@@ -54,6 +55,7 @@ const ConfirmationPage = () => {
     selectedMovie, selectedShowtime, selectedSeats,
     totalPrice, confirmBooking,
   } = useBooking();
+  const { t } = useTranslation();
 
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [paymentFields, setPaymentFields] = useState({});
@@ -65,9 +67,9 @@ const ConfirmationPage = () => {
   if (!selectedMovie || selectedSeats.length === 0) {
     return (
       <div className="confirm-page__empty container">
-        <h2>No booking in progress</h2>
-        <p>Please select a movie and seats first.</p>
-        <button onClick={() => navigate('/')}>Browse Movies</button>
+        <h2>{t('confirm.noBooking')}</h2>
+        <p>{t('booking.selectShowtime')}</p>
+        <button onClick={() => navigate('/')}>{t('confirm.browseMovies')}</button>
       </div>
     );
   }
@@ -145,12 +147,12 @@ const ConfirmationPage = () => {
       <div className="confirm-page__container container">
         <button className="confirm-page__back" onClick={() => navigate(-1)} id="confirm-back-btn">
           <ArrowLeft size={20} />
-          Back to Seats
+          {t('confirm.backToSeats')}
         </button>
 
         <h1 className="confirm-page__heading">
           <ShieldCheck size={24} />
-          Confirm & Pay
+          {t('confirm.confirmPay')}
         </h1>
 
         <div className="confirm-page__layout">
@@ -172,7 +174,7 @@ const ConfirmationPage = () => {
                   </div>
                   <div className="confirm-page__detail">
                     <MapPin size={16} />
-                    <span>{selectedSeats.length} Seat{selectedSeats.length > 1 ? 's' : ''}: {selectedSeats.sort().join(', ')}</span>
+                    <span>{selectedSeats.length} {selectedSeats.length > 1 ? t('success.seats') : t('confirm.seat')}: {selectedSeats.sort().join(', ')}</span>
                   </div>
                   <div className="confirm-page__detail">
                     <Ticket size={16} />
@@ -186,7 +188,7 @@ const ConfirmationPage = () => {
             <div className="confirm-page__card">
               <h3 className="confirm-page__section-title">
                 <Lock size={18} />
-                Select Payment Method
+                {t('confirm.selectPayment')}
               </h3>
               {errors.method && <p className="confirm-page__error-text">{errors.method}</p>}
 
@@ -251,11 +253,11 @@ const ConfirmationPage = () => {
                                     dangerouslySetInnerHTML={{ __html: qrCodeSVG }}
                                   />
                                   <div className="payment-qr__amount">
-                                    <span className="payment-qr__amount-label">Total Amount</span>
+                                    <span className="payment-qr__amount-label">{t('summary.totalAmount')}</span>
                                     <span className="payment-qr__amount-value">{formatPrice(grandTotal)}</span>
                                   </div>
                                 </div>
-                                <p className="payment-qr__instruction">Scan QR code to pay via any UPI app</p>
+                                <p className="payment-qr__instruction">{t('confirm.scanQR')}</p>
                                 <div className="payment-qr__apps">
                                   <span className="payment-qr__app-badge">GPay</span>
                                   <span className="payment-qr__app-badge">PhonePe</span>
@@ -322,23 +324,23 @@ const ConfirmationPage = () => {
             <div className="confirm-page__card confirm-page__pricing-card">
               <h3 className="confirm-page__section-title">
                 <Ticket size={18} />
-                Price Breakdown
+                {t('confirm.priceBreakdown')}
               </h3>
 
               <div className="confirm-page__pricing">
                 {selectedSeats.map((seat) => (
                   <div key={seat} className="confirm-page__price-line">
-                    <span>Seat {seat}</span>
+                    <span>{t('confirm.seat')} {seat}</span>
                     <span>{formatPrice(getSeatPrice(seat.charAt(0)))}</span>
                   </div>
                 ))}
                 <div className="confirm-page__price-line confirm-page__price-line--fee">
-                  <span>Convenience Fee ({selectedSeats.length}x ₹30)</span>
+                  <span>{t('summary.convenienceFee')} ({selectedSeats.length}x ₹30)</span>
                   <span>{formatPrice(convenienceFee)}</span>
                 </div>
                 <div className="confirm-page__divider" />
                 <div className="confirm-page__price-line confirm-page__price-line--total">
-                  <span>Grand Total</span>
+                  <span>{t('confirm.grandTotal')}</span>
                   <span>{formatPrice(grandTotal)}</span>
                 </div>
               </div>
@@ -346,7 +348,7 @@ const ConfirmationPage = () => {
               {/* Selected method indicator */}
               {selectedMethod && (
                 <div className="confirm-page__selected-method">
-                  <span>Paying via</span>
+                  <span>{t('confirm.payingVia')}</span>
                   <strong>
                     {PAYMENT_METHODS.find((m) => m.id === selectedMethod)?.name}
                     {selectedMethod === 'netbanking' && selectedBank ? ` (${selectedBank})` : ''}
@@ -365,26 +367,26 @@ const ConfirmationPage = () => {
                 {processing ? (
                   <>
                     <Loader size={20} className="confirm-page__spinner" />
-                    Processing Payment...
+                    {t('confirm.processing')}
                   </>
                 ) : (
                   <>
                     <ShieldCheck size={20} />
-                    Pay {formatPrice(grandTotal)}
+                    {t('confirm.pay')} {formatPrice(grandTotal)}
                   </>
                 )}
               </motion.button>
 
               <p className="confirm-page__secure-note">
                 <Lock size={12} />
-                Payments are 256-bit SSL encrypted
+                {t('confirm.sslEncrypted')}
               </p>
 
               <button
                 className="confirm-page__cancel-btn"
                 onClick={() => navigate(-1)}
               >
-                Go Back
+                {t('confirm.goBack')}
               </button>
             </div>
           </div>

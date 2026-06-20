@@ -2,16 +2,20 @@
  * SearchBar — Animated search input with icon
  */
 import { Search, X } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 import './SearchBar.css';
 
-const SearchBar = ({ value, onChange, placeholder = 'Search movies...' }) => {
+const SearchBar = ({ value, onChange, placeholder }) => {
+  const { t } = useTranslation();
+  const searchPlaceholder = placeholder || t('search.placeholder');
+
   return (
     <div className="search-bar" id="search-bar">
       <Search size={18} className="search-bar__icon" />
       <input
         type="text"
         className="search-bar__input"
-        placeholder={placeholder}
+        placeholder={searchPlaceholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         id="search-input"

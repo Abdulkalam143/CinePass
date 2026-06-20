@@ -12,6 +12,7 @@ import FilterBar from '../components/FilterBar';
 import SkeletonCard from '../components/SkeletonCard';
 import LocationIndicator from '../components/LocationIndicator';
 import { useLocationContext } from '../context/LocationContext';
+import { useTranslation } from '../context/LanguageContext';
 import {
   fetchNowScreening, fetchUpcoming, fetchTrending, searchMovies,
   getLanguageForCity, getLanguageLabel, BACKDROP_PLACEHOLDER,
@@ -28,6 +29,7 @@ const HomePage = () => {
   } = useGeolocation();
 
   const { displayLocation: manualLocation, isManual, selectedCity } = useLocationContext();
+  const { t } = useTranslation();
 
   const displayLocation = manualLocation || gpsLocation;
   // For manual Indian city selections, use 'IN' as the region code
@@ -131,9 +133,9 @@ const HomePage = () => {
 
   // Section tabs config
   const sectionTabs = [
-    { id: 'now_playing', label: 'Now Screening', icon: Film, count: nowPlaying.length },
-    { id: 'upcoming', label: 'Coming Soon', icon: CalendarDays, count: upcoming.length },
-    { id: 'trending', label: 'Trending Today', icon: Flame, count: trending.length },
+    { id: 'now_playing', label: t('home.nowScreening'), icon: Film, count: nowPlaying.length },
+    { id: 'upcoming', label: t('home.comingSoon'), icon: CalendarDays, count: upcoming.length },
+    { id: 'trending', label: t('home.trending'), icon: Flame, count: trending.length },
   ];
 
   // Regional language info for display
@@ -161,7 +163,7 @@ const HomePage = () => {
             >
               <span className="hero__badge">
                 <Sparkles size={14} />
-                {displayLocation ? `Now Screening in ${displayLocation}` : 'Now Screening'}
+                {displayLocation ? `${t('home.nowScreening')} (${displayLocation})` : t('home.nowScreening')}
               </span>
               <h1 className="hero__title">{featured.title}</h1>
               <p className="hero__desc">{featured.description?.slice(0, 160)}...</p>
@@ -235,14 +237,14 @@ const HomePage = () => {
         <div className="home-page__section-header">
           {searchQuery.trim() ? (
             <h2 className="home-page__section-title">
-              🔍 Search results for "{searchQuery}"
+              🔍 {t('home.searchResult')} "{searchQuery}"
             </h2>
           ) : (
             <h2 className="home-page__section-title">
               {activeSection === 'now_playing' && (
                 <>
                   <TrendingUp size={22} className="home-page__section-icon" />
-                  Now Screening{displayLocation ? ` in ${displayLocation}` : ''}
+                  {t('home.nowScreening')}{displayLocation ? ` (${displayLocation})` : ''}
                   {regionalLabel && activeSection === 'now_playing' && (
                     <span className="home-page__region-tag">
                       {regionalLabel} + All India
@@ -251,14 +253,14 @@ const HomePage = () => {
                 </>
               )}
               {activeSection === 'upcoming' && (
-                <><CalendarDays size={22} className="home-page__section-icon" /> Coming Soon{displayLocation ? ` in ${displayLocation}` : ''}</>
+                <><CalendarDays size={22} className="home-page__section-icon" /> {t('home.comingSoon')}{displayLocation ? ` (${displayLocation})` : ''}</>
               )}
               {activeSection === 'trending' && (
-                <><Flame size={22} className="home-page__section-icon" /> Trending Today</>
+                <><Flame size={22} className="home-page__section-icon" /> {t('home.trending')}</>
               )}
             </h2>
           )}
-          <span className="home-page__count">{filteredMovies.length} movies</span>
+          <span className="home-page__count">{filteredMovies.length} {t('home.moviesCount')}</span>
         </div>
 
         {/* Genre Filter */}
@@ -275,8 +277,7 @@ const HomePage = () => {
           ) : (
             <div className="home-page__empty">
               <Film size={48} />
-              <h3>No movies found</h3>
-              <p>Try adjusting your search, filter, or enable location for regional results</p>
+              <h3>{t('home.noMovies')}</h3>
             </div>
           )}
         </div>

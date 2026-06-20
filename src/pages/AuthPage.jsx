@@ -8,11 +8,13 @@ import {
   LogIn, UserPlus, Mail, Lock, User, Eye, EyeOff,
   Film, ArrowRight, CheckCircle,
 } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 import './AuthPage.css';
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const from = location.state?.from || '/';
   const [mode, setMode] = useState('login'); // login | signup
   const [showPassword, setShowPassword] = useState(false);
@@ -39,20 +41,20 @@ const AuthPage = () => {
     const newErrors = {};
 
     if (mode === 'signup' && !form.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t('auth.reqFields');
     }
     if (!form.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('auth.reqFields');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'Invalid email format';
+      newErrors.email = t('auth.invalidEmail');
     }
     if (!form.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = t('auth.reqFields');
     } else if (form.password.length < 6) {
-      newErrors.password = 'Minimum 6 characters';
+      newErrors.password = t('auth.minPass');
     }
     if (mode === 'signup' && form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = t('auth.passMismatch');
     }
 
     setErrors(newErrors);
@@ -73,7 +75,7 @@ const AuthPage = () => {
       const users = JSON.parse(localStorage.getItem('cinepass_users') || '[]');
       const exists = users.find((u) => u.email === form.email);
       if (exists) {
-        setErrors({ email: 'Account already exists. Please login.' });
+        setErrors({ email: t('auth.alreadyExists') });
         setLoading(false);
         return;
       }
@@ -84,7 +86,7 @@ const AuthPage = () => {
       const users = JSON.parse(localStorage.getItem('cinepass_users') || '[]');
       const user = users.find((u) => u.email === form.email && u.password === form.password);
       if (!user) {
-        setErrors({ email: 'Invalid email or password' });
+        setErrors({ email: t('auth.invalidCreds') });
         setLoading(false);
         return;
       }
@@ -126,10 +128,10 @@ const AuthPage = () => {
             </div>
             <h2 className="auth-brand__title">CinePass</h2>
             <p className="auth-brand__tagline">
-              Your premium movie ticket booking experience
+              {t('auth.premiumText')}
             </p>
             <div className="auth-brand__features">
-              {['GPS Theater Discovery', 'Interactive Seat Maps', 'Instant Booking'].map((f) => (
+              {[t('auth.gpsDiscovery'), t('auth.interactiveMaps'), t('auth.instantBooking')].map((f) => (
                 <div key={f} className="auth-brand__feature">
                   <CheckCircle size={14} />
                   <span>{f}</span>
@@ -148,13 +150,13 @@ const AuthPage = () => {
                 className={`auth-tab ${mode === 'login' ? 'active' : ''}`}
                 onClick={() => toggleMode()}
               >
-                <LogIn size={16} /> Login
+                <LogIn size={16} /> {t('nav.login')}
               </button>
               <button
                 className={`auth-tab ${mode === 'signup' ? 'active' : ''}`}
                 onClick={() => toggleMode()}
               >
-                <UserPlus size={16} /> Sign Up
+                <UserPlus size={16} /> {t('auth.signup')}
               </button>
             </div>
 
@@ -167,19 +169,17 @@ const AuthPage = () => {
                 transition={{ duration: 0.25 }}
               >
                 <h1 className="auth-form__title">
-                  {mode === 'login' ? 'Welcome Back!' : 'Create Account'}
+                  {mode === 'login' ? t('auth.welcomeBack') : t('auth.createAccount')}
                 </h1>
                 <p className="auth-form__subtitle">
                   {mode === 'login'
-                    ? 'Login to access your bookings and wallet'
-                    : 'Join CinePass for the best movie experience'}
-                </p>
-
-                <form onSubmit={handleSubmit} className="auth-form">
+                    ? t('auth.loginToAccess')
+                    : t('auth.joinCinePass')}
+                </p>                <form onSubmit={handleSubmit} className="auth-form">
                   {/* Name (signup only) */}
                   {mode === 'signup' && (
                     <div className={`auth-field ${errors.name ? 'auth-field--error' : ''}`}>
-                      <label htmlFor="auth-name"><User size={14} /> Full Name</label>
+                      <label htmlFor="auth-name"><User size={14} /> {t('profile.fullName')}</label>
                       <input
                         type="text" id="auth-name" name="name"
                         value={form.name} onChange={handleChange}
@@ -192,7 +192,7 @@ const AuthPage = () => {
 
                   {/* Email */}
                   <div className={`auth-field ${errors.email ? 'auth-field--error' : ''}`}>
-                    <label htmlFor="auth-email"><Mail size={14} /> Email</label>
+                    <label htmlFor="auth-email"><Mail size={14} /> {t('profile.email')}</label>
                     <input
                       type="email" id="auth-email" name="email"
                       value={form.email} onChange={handleChange}
@@ -203,7 +203,7 @@ const AuthPage = () => {
 
                   {/* Password */}
                   <div className={`auth-field ${errors.password ? 'auth-field--error' : ''}`}>
-                    <label htmlFor="auth-password"><Lock size={14} /> Password</label>
+                    <label htmlFor="auth-password"><Lock size={14} /> {t('auth.password')}</label>
                     <div className="auth-field__password-wrap">
                       <input
                         type={showPassword ? 'text' : 'password'}
@@ -225,7 +225,7 @@ const AuthPage = () => {
                   {/* Confirm Password (signup only) */}
                   {mode === 'signup' && (
                     <div className={`auth-field ${errors.confirmPassword ? 'auth-field--error' : ''}`}>
-                      <label htmlFor="auth-confirm"><Lock size={14} /> Confirm Password</label>
+                      <label htmlFor="auth-confirm"><Lock size={14} /> {t('auth.confirmPassword')}</label>
                       <input
                         type="password" id="auth-confirm" name="confirmPassword"
                         value={form.confirmPassword} onChange={handleChange}
@@ -244,7 +244,7 @@ const AuthPage = () => {
                       <span className="auth-form__loader" />
                     ) : (
                       <>
-                        {mode === 'login' ? 'Login' : 'Create Account'}
+                        {mode === 'login' ? t('nav.login') : t('auth.createAccount')}
                         <ArrowRight size={16} />
                       </>
                     )}
@@ -252,7 +252,7 @@ const AuthPage = () => {
                 </form>
 
                 {mode === 'login' && (
-                  <button className="auth-form__forgot">Forgot password?</button>
+                  <button className="auth-form__forgot">{t('auth.forgotPassword')}</button>
                 )}
               </motion.div>
             </AnimatePresence>

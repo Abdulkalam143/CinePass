@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Star, Clock, Play, ArrowLeft, Armchair } from 'lucide-react';
 import { fetchMovieDetails, POSTER_PLACEHOLDER, BACKDROP_PLACEHOLDER } from '../utils/api';
 import { useBooking } from '../context/BookingContext';
+import { useTranslation } from '../context/LanguageContext';
 import TheaterShowtimes from '../components/TheaterShowtimes';
 import staticMovies from '../data/movies.json';
 import './MovieDetailsPage.css';
@@ -16,6 +17,7 @@ const MovieDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { selectMovie, selectShowtime, selectedShowtime } = useBooking();
+  const { t } = useTranslation();
 
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -77,8 +79,8 @@ const MovieDetailsPage = () => {
   if (!movie) {
     return (
       <div className="movie-details__not-found container">
-        <h2>Movie not found</h2>
-        <button onClick={() => navigate('/')}>Go Home</button>
+        <h2>{t('details.movieNotFound')}</h2>
+        <button onClick={() => navigate('/')}>{t('details.goHome')}</button>
       </div>
     );
   }
@@ -102,7 +104,7 @@ const MovieDetailsPage = () => {
 
         <button className="movie-details__back" onClick={() => navigate(-1)} id="back-btn">
           <ArrowLeft size={20} />
-          Back
+          {t('details.back')}
         </button>
 
         <div className="movie-details__hero-content container">
@@ -143,7 +145,7 @@ const MovieDetailsPage = () => {
                 id="watch-trailer-btn"
               >
                 <Play size={18} fill="white" />
-                {showTrailer ? 'Hide Trailer' : 'Watch Trailer'}
+                {showTrailer ? t('details.hideTrailer') : t('details.watchTrailer')}
               </button>
             )}
           </div>
@@ -200,8 +202,8 @@ const MovieDetailsPage = () => {
           id="select-seats-btn"
         >
           {selectedShowtime
-            ? `Select Seats →`
-            : 'Choose a theater & showtime to continue'}
+            ? `${t('details.selectSeats')} →`
+            : t('details.chooseTheater')}
         </motion.button>
       </section>
     </motion.div>

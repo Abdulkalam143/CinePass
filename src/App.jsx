@@ -23,6 +23,7 @@ import AuthPage from './pages/AuthPage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import ProfilePage from './pages/ProfilePage';
 import { LocationProvider } from './context/LocationContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 import './App.css';
 
@@ -67,20 +68,22 @@ const App = () => {
       </AnimatePresence>
 
       <Router>
-        <ThemeProvider>
-          <LocationProvider>
-            <BookingProvider>
-              <div className={`app ${showSplash ? 'app--hidden' : ''}`} id="app-root">
-                <Header />
-                <main className="app__main">
-                  <AnimatedRoutes />
-                </main>
-                <Footer />
-                <Toast />
-              </div>
-            </BookingProvider>
-          </LocationProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <LocationProvider>
+              <BookingProvider>
+                <div className={`app ${showSplash ? 'app--hidden' : ''}`} id="app-root">
+                  <Header />
+                  <main className="app__main">
+                    <AnimatedRoutes />
+                  </main>
+                  <Footer />
+                  <Toast />
+                </div>
+              </BookingProvider>
+            </LocationProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </Router>
     </>
   );

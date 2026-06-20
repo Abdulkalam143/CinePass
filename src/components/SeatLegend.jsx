@@ -1,13 +1,15 @@
 /**
  * SeatLegend — Color legend explaining seat states
  */
+import { useTranslation } from '../context/LanguageContext';
 import './SeatLegend.css';
 
 const SeatLegend = () => {
+  const { t } = useTranslation();
   const items = [
-    { color: 'var(--seat-available)', label: 'Available' },
-    { color: 'var(--seat-selected)', label: 'Selected' },
-    { color: 'var(--seat-booked-dim)', label: 'Booked' },
+    { color: 'var(--seat-available)', label: t('legend.available') },
+    { color: 'var(--seat-selected)', label: t('legend.selected') },
+    { color: 'var(--seat-booked-dim)', label: t('legend.booked') },
   ];
 
   return (

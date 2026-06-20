@@ -10,10 +10,12 @@ import {
   ArrowLeft, Eye, EyeOff, CheckCircle, AlertCircle,
   Edit3, Shield, Calendar, Ticket,
 } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const { t, language } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -59,10 +61,10 @@ const ProfilePage = () => {
     setStats({
       bookings: userBookings.length,
       memberSince: session.timestamp
-        ? new Date(session.timestamp).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+        ? new Date(session.timestamp).toLocaleDateString(language === 'en' ? 'en-US' : language, { month: 'long', year: 'numeric' })
         : 'Recently',
     });
-  }, []);
+  }, [language]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -151,7 +153,7 @@ const ProfilePage = () => {
     setSaving(false);
     setUserData((prev) => ({ ...prev, currentPassword: '', newPassword: '', confirmPassword: '' }));
     setOriginalData({ ...userData, currentPassword: '', newPassword: '', confirmPassword: '' });
-    showToast('Profile updated successfully!', 'success');
+    showToast(t('profile.updated'), 'success');
   };
 
   const handleCancel = () => {
@@ -199,7 +201,7 @@ const ProfilePage = () => {
         {/* Back button */}
         <button className="profile-back" onClick={() => navigate(-1)} id="profile-back-btn">
           <ArrowLeft size={18} />
-          Back
+          {t('profile.back')}
         </button>
 
         <div className="profile-layout">
@@ -229,7 +231,7 @@ const ProfilePage = () => {
                 </div>
                 <div className="profile-stat__info">
                   <span className="profile-stat__value">{stats.bookings}</span>
-                  <span className="profile-stat__label">Bookings</span>
+                  <span className="profile-stat__label">{t('profile.bookingsCount')}</span>
                 </div>
               </div>
               <div className="profile-stat">
@@ -238,7 +240,7 @@ const ProfilePage = () => {
                 </div>
                 <div className="profile-stat__info">
                   <span className="profile-stat__value">{stats.memberSince}</span>
-                  <span className="profile-stat__label">Member Since</span>
+                  <span className="profile-stat__label">{t('profile.memberSince')}</span>
                 </div>
               </div>
               <div className="profile-stat">
@@ -246,8 +248,8 @@ const ProfilePage = () => {
                   <Shield size={16} />
                 </div>
                 <div className="profile-stat__info">
-                  <span className="profile-stat__value">Verified</span>
-                  <span className="profile-stat__label">Status</span>
+                  <span className="profile-stat__value">{t('profile.verified')}</span>
+                  <span className="profile-stat__label">{t('profile.status')}</span>
                 </div>
               </div>
             </div>
@@ -263,8 +265,8 @@ const ProfilePage = () => {
             {/* Header */}
             <div className="profile-content__header">
               <div>
-                <h1 className="profile-content__title">Personal Information</h1>
-                <p className="profile-content__subtitle">Manage your account details and preferences</p>
+                <h1 className="profile-content__title">{t('profile.personalInfo')}</h1>
+                <p className="profile-content__subtitle">{t('profile.manageDetails')}</p>
               </div>
               {!editing ? (
                 <button
@@ -273,12 +275,12 @@ const ProfilePage = () => {
                   id="profile-edit-btn"
                 >
                   <Edit3 size={16} />
-                  Edit Profile
+                  {t('profile.editProfile')}
                 </button>
               ) : (
                 <div className="profile-edit-actions">
                   <button className="profile-cancel-btn" onClick={handleCancel}>
-                    Cancel
+                    {t('profile.cancel')}
                   </button>
                   <button
                     className="profile-save-btn"
@@ -291,7 +293,7 @@ const ProfilePage = () => {
                     ) : (
                       <>
                         <Save size={16} />
-                        Save Changes
+                        {t('profile.saveChanges')}
                       </>
                     )}
                   </button>
@@ -305,7 +307,7 @@ const ProfilePage = () => {
               <div className={`profile-field ${errors.name ? 'profile-field--error' : ''}`}>
                 <label htmlFor="profile-name">
                   <User size={14} />
-                  Full Name
+                  {t('profile.fullName')}
                 </label>
                 {editing ? (
                   <input
@@ -323,7 +325,7 @@ const ProfilePage = () => {
               <div className={`profile-field ${errors.email ? 'profile-field--error' : ''}`}>
                 <label htmlFor="profile-email">
                   <Mail size={14} />
-                  Email Address
+                  {t('profile.email')}
                 </label>
                 {editing ? (
                   <input
@@ -341,7 +343,7 @@ const ProfilePage = () => {
               <div className={`profile-field ${errors.phone ? 'profile-field--error' : ''}`}>
                 <label htmlFor="profile-phone">
                   <Phone size={14} />
-                  Phone Number
+                  {t('profile.phone')}
                 </label>
                 {editing ? (
                   <input
@@ -366,16 +368,16 @@ const ProfilePage = () => {
               >
                 <h3 className="profile-password-section__title">
                   <Lock size={16} />
-                  Change Password
+                  {t('profile.changePass')}
                 </h3>
-                <p className="profile-password-section__hint">Leave blank to keep your current password</p>
+                <p className="profile-password-section__hint">{t('profile.leaveBlank')}</p>
 
                 <div className="profile-fields">
                   {/* Current Password */}
                   <div className={`profile-field ${errors.currentPassword ? 'profile-field--error' : ''}`}>
                     <label htmlFor="profile-current-pw">
                       <Lock size={14} />
-                      Current Password
+                      {t('profile.currentPass')}
                     </label>
                     <div className="profile-field__pw-wrap">
                       <input
@@ -398,7 +400,7 @@ const ProfilePage = () => {
                   <div className={`profile-field ${errors.newPassword ? 'profile-field--error' : ''}`}>
                     <label htmlFor="profile-new-pw">
                       <Lock size={14} />
-                      New Password
+                      {t('profile.newPass')}
                     </label>
                     <div className="profile-field__pw-wrap">
                       <input
@@ -421,7 +423,7 @@ const ProfilePage = () => {
                   <div className={`profile-field ${errors.confirmPassword ? 'profile-field--error' : ''}`}>
                     <label htmlFor="profile-confirm-pw">
                       <Lock size={14} />
-                      Confirm New Password
+                      {t('profile.confirmNewPass')}
                     </label>
                     <input
                       type="password" id="profile-confirm-pw" name="confirmPassword"

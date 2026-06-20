@@ -4,9 +4,11 @@
 import { useBooking } from '../context/BookingContext';
 import { getSeatPrice, formatPrice } from '../utils/seatUtils';
 import { Ticket, MapPin, Clock, CreditCard } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 import './BookingSummary.css';
 
 const BookingSummary = ({ onProceed }) => {
+  const { t } = useTranslation();
   const { selectedMovie, selectedShowtime, selectedSeats, totalPrice } = useBooking();
 
   if (!selectedMovie) return null;
@@ -28,7 +30,7 @@ const BookingSummary = ({ onProceed }) => {
     <div className="booking-summary" id="booking-summary">
       <h3 className="booking-summary__title">
         <Ticket size={18} />
-        Booking Summary
+        {t('summary.bookingSummary')}
       </h3>
 
       {/* Movie info */}
@@ -55,7 +57,7 @@ const BookingSummary = ({ onProceed }) => {
           <div className="booking-summary__seats">
             <div className="booking-summary__seats-header">
               <MapPin size={14} />
-              <span>Selected Seats ({selectedSeats.length})</span>
+              <span>{t('summary.selectedSeats')} ({selectedSeats.length})</span>
             </div>
             <div className="booking-summary__seat-tags">
               {selectedSeats.sort().map((seat) => (
@@ -70,17 +72,17 @@ const BookingSummary = ({ onProceed }) => {
           <div className="booking-summary__breakdown">
             {Object.entries(seatBreakdown).map(([priceLabel, data]) => (
               <div key={priceLabel} className="booking-summary__line">
-                <span>{data.count}x Seat @ {priceLabel}</span>
+                <span>{data.count}x {t('confirm.seat')} @ {priceLabel}</span>
                 <span>{formatPrice(data.count * data.price)}</span>
               </div>
             ))}
             <div className="booking-summary__line booking-summary__line--fee">
-              <span>Convenience Fee</span>
+              <span>{t('summary.convenienceFee')}</span>
               <span>{formatPrice(selectedSeats.length * 30)}</span>
             </div>
             <div className="booking-summary__divider" />
             <div className="booking-summary__line booking-summary__line--total">
-              <span>Total Amount</span>
+              <span>{t('summary.totalAmount')}</span>
               <span>{formatPrice(totalPrice + selectedSeats.length * 30)}</span>
             </div>
           </div>
@@ -93,12 +95,12 @@ const BookingSummary = ({ onProceed }) => {
             id="proceed-to-payment-btn"
           >
             <CreditCard size={18} />
-            Proceed to Payment — {formatPrice(totalPrice + selectedSeats.length * 30)}
+            {t('summary.proceedToPayment')} — {formatPrice(totalPrice + selectedSeats.length * 30)}
           </button>
         </>
       ) : (
         <p className="booking-summary__empty">
-          Select seats from the layout to see pricing
+          {t('summary.selectSeatsPrompt')}
         </p>
       )}
     </div>

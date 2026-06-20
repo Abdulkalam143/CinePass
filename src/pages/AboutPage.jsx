@@ -3,29 +3,32 @@
  */
 import { motion } from 'framer-motion';
 import { Film, Users, Shield, Zap, Globe, Heart, Award, Star } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 import './AboutPage.css';
 
-const stats = [
-  { value: '10M+', label: 'Tickets Booked' },
-  { value: '500+', label: 'Theaters' },
-  { value: '50+', label: 'Cities' },
-  { value: '4.8★', label: 'App Rating' },
-];
-
-const values = [
-  { icon: Zap, title: 'Fast Booking', desc: 'Book tickets in under 30 seconds with our streamlined flow.' },
-  { icon: Shield, title: 'Secure Payments', desc: 'Bank-grade encryption for every transaction you make.' },
-  { icon: Globe, title: 'GPS Discovery', desc: 'Find theaters near you with real-time location tracking.' },
-  { icon: Heart, title: 'User First', desc: 'Every pixel is designed for the best movie-going experience.' },
-];
-
-const team = [
-  { name: 'Abdul Kalam', role: 'Founder & Developer', emoji: '👨‍💻' },
-  { name: 'CinePass Team', role: 'Design & UX', emoji: '🎨' },
-  { name: 'Open Source', role: 'Community Contributors', emoji: '🌍' },
-];
-
 const AboutPage = () => {
+  const { t } = useTranslation();
+
+  const stats = [
+    { value: '10M+', label: t('about.stats.tickets') },
+    { value: '500+', label: t('about.stats.theaters') },
+    { value: '1M+', label: t('about.stats.activeUsers') },
+    { value: '4.8★', label: t('about.stats.rating') },
+  ];
+
+  const values = [
+    { icon: Zap, title: t('auth.instantBooking'), desc: 'Book tickets in under 30 seconds with our streamlined flow.' },
+    { icon: Shield, title: 'Secure Payments', desc: 'Bank-grade encryption for every transaction you make.' },
+    { icon: Globe, title: t('auth.gpsDiscovery'), desc: 'Find theaters near you with real-time location tracking.' },
+    { icon: Heart, title: 'User First', desc: 'Every pixel is designed for the best movie-going experience.' },
+  ];
+
+  const team = [
+    { name: 'Abdul Kalam', role: 'Founder & Developer', emoji: '👨‍💻' },
+    { name: 'CinePass Team', role: 'Design & UX', emoji: '🎨' },
+    { name: 'Open Source', role: 'Community Contributors', emoji: '🌍' },
+  ];
+
   return (
     <motion.div
       className="about-page"
@@ -44,16 +47,14 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="about-hero__badge">
-              <Film size={14} /> About CinePass
+              <Film size={14} /> {t('about.title')}
             </span>
             <h1 className="about-hero__title">
               The Future of<br />
               <span className="about-hero__accent">Movie Booking</span>
             </h1>
             <p className="about-hero__desc">
-              CinePass is a next-generation movie ticket booking platform that combines 
-              real-time theater discovery, interactive seat selection, and seamless payments 
-              into one beautiful experience.
+              {t('about.desc')}
             </p>
           </motion.div>
         </div>
@@ -78,7 +79,7 @@ const AboutPage = () => {
       {/* Values */}
       <section className="about-values container">
         <h2 className="about-section__title">
-          <Award size={22} /> Why CinePass?
+          <Award size={22} /> {t('about.valuesTitle')}
         </h2>
         <div className="about-values__grid">
           {values.map((val, i) => {
@@ -105,7 +106,7 @@ const AboutPage = () => {
       {/* Team */}
       <section className="about-team container">
         <h2 className="about-section__title">
-          <Users size={22} /> Our Team
+          <Users size={22} /> {t('about.teamTitle')}
         </h2>
         <div className="about-team__grid">
           {team.map((member, i) => (
@@ -128,11 +129,9 @@ const AboutPage = () => {
       <section className="about-mission container">
         <div className="about-mission__card">
           <Star size={28} className="about-mission__icon" />
-          <h2>Our Mission</h2>
+          <h2>{t('about.missionTitle')}</h2>
           <p>
-            To make movie-going effortless by bringing real-time theater discovery, 
-            transparent pricing, and a premium booking experience to everyone — no matter 
-            where they are.
+            {t('about.missionText')}
           </p>
         </div>
       </section>

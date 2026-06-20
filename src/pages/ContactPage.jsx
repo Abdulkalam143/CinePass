@@ -7,6 +7,7 @@ import {
   Headphones, Mail, Phone, MessageCircle, Send,
   ChevronDown, MapPin, Clock, CheckCircle,
 } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 import './ContactPage.css';
 
 const faqs = [
@@ -18,6 +19,7 @@ const faqs = [
 ];
 
 const ContactPage = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
@@ -45,21 +47,21 @@ const ContactPage = () => {
         {/* Header */}
         <div className="contact-header">
           <span className="contact-header__badge">
-            <Headphones size={14} /> Support
+            <Headphones size={14} /> {t('contact.title')}
           </span>
-          <h1 className="contact-header__title">How Can We Help?</h1>
+          <h1 className="contact-header__title">{t('contact.subtitle')}</h1>
           <p className="contact-header__desc">
-            Have a question or need assistance? We're here to help 24/7.
+            {t('contact.desc')}
           </p>
         </div>
 
         {/* Support channels */}
         <div className="contact-channels">
           {[
-            { icon: Mail, label: 'Email', value: 'support@cinepass.app', color: 'accent' },
-            { icon: Phone, label: 'Phone', value: '+91 1800-123-4567', color: 'green' },
-            { icon: MessageCircle, label: 'Live Chat', value: 'Available 24/7', color: 'blue' },
-            { icon: Clock, label: 'Response Time', value: 'Under 2 hours', color: 'gold' },
+            { icon: Mail, label: t('contact.email'), value: 'support@cinepass.app', color: 'accent' },
+            { icon: Phone, label: t('contact.phone'), value: '+91 1800-123-4567', color: 'green' },
+            { icon: MessageCircle, label: t('contact.liveChat'), value: 'Available 24/7', color: 'blue' },
+            { icon: Clock, label: t('contact.responseTime'), value: 'Under 2 hours', color: 'gold' },
           ].map((ch, i) => {
             const Icon = ch.icon;
             return (
@@ -81,7 +83,7 @@ const ContactPage = () => {
         <div className="contact-page__grid">
           {/* Contact form */}
           <section className="contact-form-section">
-            <h2><Send size={20} /> Send Us a Message</h2>
+            <h2><Send size={20} /> {t('contact.sendMessage')}</h2>
 
             {submitted ? (
               <motion.div
@@ -90,14 +92,14 @@ const ContactPage = () => {
                 animate={{ opacity: 1, scale: 1 }}
               >
                 <CheckCircle size={48} />
-                <h3>Message Sent!</h3>
-                <p>We'll get back to you within 2 hours.</p>
+                <h3>{t('contact.messageSent')}</h3>
+                <p>{t('contact.contactText')}</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="contact-form__row">
                   <div className="contact-form__group">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">{t('contact.name')}</label>
                     <input
                       type="text" id="name" name="name"
                       value={formData.name} onChange={handleChange}
@@ -105,7 +107,7 @@ const ContactPage = () => {
                     />
                   </div>
                   <div className="contact-form__group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">{t('profile.email')}</label>
                     <input
                       type="email" id="email" name="email"
                       value={formData.email} onChange={handleChange}
@@ -114,7 +116,7 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="contact-form__group">
-                  <label htmlFor="subject">Subject</label>
+                  <label htmlFor="subject">{t('contact.subject')}</label>
                   <input
                     type="text" id="subject" name="subject"
                     value={formData.subject} onChange={handleChange}
@@ -122,7 +124,7 @@ const ContactPage = () => {
                   />
                 </div>
                 <div className="contact-form__group">
-                  <label htmlFor="message">Message</label>
+                  <label htmlFor="message">{t('contact.message')}</label>
                   <textarea
                     id="message" name="message" rows="5"
                     value={formData.message} onChange={handleChange}
@@ -130,7 +132,7 @@ const ContactPage = () => {
                   />
                 </div>
                 <button type="submit" className="contact-form__submit">
-                  <Send size={16} /> Send Message
+                  <Send size={16} /> {t('contact.sendMessage')}
                 </button>
               </form>
             )}
@@ -138,7 +140,7 @@ const ContactPage = () => {
 
           {/* FAQs */}
           <section className="contact-faqs">
-            <h2><MessageCircle size={20} /> FAQs</h2>
+            <h2><MessageCircle size={20} /> {t('contact.faqs')}</h2>
             <div className="contact-faqs__list">
               {faqs.map((faq, i) => (
                 <div
@@ -170,7 +172,7 @@ const ContactPage = () => {
         {/* Office info */}
         <div className="contact-office">
           <MapPin size={16} />
-          <span>CinePass HQ — Hyderabad, Telangana, India</span>
+          <span>{t('contact.office')} — Hyderabad, Telangana, India</span>
         </div>
       </div>
     </motion.div>

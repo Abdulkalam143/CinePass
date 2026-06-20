@@ -5,16 +5,33 @@
 import { Link } from 'react-router-dom';
 import { Star, Clock, Play, Calendar } from 'lucide-react';
 import { POSTER_PLACEHOLDER } from '../utils/api';
+import { useTranslation } from '../context/LanguageContext';
 import './MovieCard.css';
 
 /**
  * Format a release date string into a short human-readable form
  */
-const formatReleaseDate = (dateStr) => {
+const formatReleaseDate = (dateStr, lang = 'en') => {
   if (!dateStr) return '';
   try {
     const date = new Date(dateStr + 'T00:00:00');
-    return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const localeMap = {
+      en: 'en-IN',
+      hi: 'hi-IN',
+      te: 'te-IN',
+      ta: 'ta-IN',
+      kn: 'kn-IN',
+      ml: 'ml-IN',
+      bn: 'bn-IN',
+      mr: 'mr-IN',
+      gu: 'gu-IN',
+      pa: 'pa-IN',
+      or: 'or-IN',
+      as: 'as-IN',
+      ur: 'ur-IN'
+    };
+    const locale = localeMap[lang] || 'en-IN';
+    return date.toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
   } catch {
     return dateStr;
   }
@@ -43,6 +60,7 @@ const isNewRelease = (dateStr) => {
 };
 
 const MovieCard = ({ movie, index = 0 }) => {
+  const { t, language } = useTranslation();
   const screening = isCurrentlyScreening(movie.releaseDate);
   const newRelease = isNewRelease(movie.releaseDate);
 
@@ -84,12 +102,12 @@ const MovieCard = ({ movie, index = 0 }) => {
           {/* Status badges — all movies are verified theater-only */}
           {newRelease && (
             <div className="movie-card__status-badge movie-card__status-badge--new">
-              🔥 New Release
+              {t('card.newRelease')}
             </div>
           )}
           {!newRelease && (
             <div className="movie-card__status-badge movie-card__status-badge--screening">
-              🎬 In Theaters
+              {t('card.inTheaters')}
             </div>
           )}
 
@@ -122,11 +140,11 @@ const MovieCard = ({ movie, index = 0 }) => {
           {movie.releaseDate && (
             <div className="movie-card__release-date">
               <Calendar size={11} />
-              <span>{formatReleaseDate(movie.releaseDate)}</span>
+              <span>{formatReleaseDate(movie.releaseDate, language)}</span>
             </div>
           )}
 
-          <button className="movie-card__book-btn">Book Now</button>
+          <button className="movie-card__book-btn">{t('card.bookNow')}</button>
         </div>
       </Link>
     </div>

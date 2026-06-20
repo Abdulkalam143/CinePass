@@ -11,11 +11,13 @@ import {
 } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
 import { formatPrice } from '../utils/seatUtils';
+import { useTranslation } from '../context/LanguageContext';
 import './MyBookingsPage.css';
 
 const MyBookingsPage = () => {
   const navigate = useNavigate();
   const { bookingHistory } = useBooking();
+  const { t } = useTranslation();
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -52,16 +54,16 @@ const MyBookingsPage = () => {
             id="mybookings-back-btn"
           >
             <ArrowLeft size={20} />
-            Back
+            {t('bookings.back')}
           </button>
           <h1 className="mybookings-page__title">
             <Ticket size={28} />
-            My Bookings
+            {t('bookings.title')}
           </h1>
           <p className="mybookings-page__subtitle">
             {bookingHistory.length > 0
-              ? `You have ${bookingHistory.length} booking${bookingHistory.length > 1 ? 's' : ''}`
-              : 'Your booking history will appear here'}
+              ? t('bookings.countText', { count: bookingHistory.length })
+              : t('bookings.noBookings')}
           </p>
         </div>
 
@@ -76,14 +78,14 @@ const MyBookingsPage = () => {
             <div className="mybookings-page__empty-icon">
               <Film size={64} />
             </div>
-            <h2>No bookings yet</h2>
-            <p>Book your first movie ticket and it'll show up here!</p>
+            <h2>{t('bookings.noBookings')}</h2>
+            <p>{t('bookings.bookFirst')}</p>
             <button
               className="mybookings-page__browse-btn"
               onClick={() => navigate('/')}
             >
               <Film size={18} />
-              Browse Movies
+              {t('confirm.browseMovies')}
             </button>
           </motion.div>
         ) : (
@@ -100,7 +102,7 @@ const MyBookingsPage = () => {
                 {/* Status Badge */}
                 <div className="booking-card__status">
                   <CheckCircle2 size={14} />
-                  Confirmed
+                  {t('bookings.statusConfirmed')}
                 </div>
 
                 {/* Movie Info */}
@@ -137,7 +139,7 @@ const MyBookingsPage = () => {
                   <div className="booking-card__detail">
                     <Clock size={14} />
                     <div>
-                      <span className="booking-card__detail-label">Showtime</span>
+                      <span className="booking-card__detail-label">{t('success.showtime')}</span>
                       <span className="booking-card__detail-value">{booking.showtime}</span>
                     </div>
                   </div>
@@ -145,7 +147,7 @@ const MyBookingsPage = () => {
                     <Armchair size={14} />
                     <div>
                       <span className="booking-card__detail-label">
-                        Seats ({booking.seatCount || booking.seats?.length || 0})
+                        {t('success.seats')} ({booking.seatCount || booking.seats?.length || 0})
                       </span>
                       <span className="booking-card__detail-value">
                         {booking.seats?.sort().join(', ') || 'N/A'}
@@ -155,7 +157,7 @@ const MyBookingsPage = () => {
                   <div className="booking-card__detail">
                     <MapPin size={14} />
                     <div>
-                      <span className="booking-card__detail-label">Booked At</span>
+                      <span className="booking-card__detail-label">{t('bookings.bookedAt')}</span>
                       <span className="booking-card__detail-value">
                         {formatTime(booking.timestamp)}
                       </span>
@@ -164,7 +166,7 @@ const MyBookingsPage = () => {
                   <div className="booking-card__detail">
                     <IndianRupee size={14} />
                     <div>
-                      <span className="booking-card__detail-label">Amount Paid</span>
+                      <span className="booking-card__detail-label">{t('success.amountPaid')}</span>
                       <span className="booking-card__detail-value booking-card__detail-value--price">
                         {formatPrice(booking.totalPrice)}
                       </span>

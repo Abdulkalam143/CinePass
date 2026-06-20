@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Film, Menu, X, Ticket, User, LogOut, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useTranslation } from '../context/LanguageContext';
+import LanguageSelector from './LanguageSelector';
 import './Header.css';
 
 const Header = () => {
@@ -13,6 +15,7 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const location = useLocation();
   const { theme, toggleTheme, isDark } = useTheme();
+  const { t } = useTranslation();
 
   // Check for logged-in user session
   useEffect(() => {
@@ -31,11 +34,11 @@ const Header = () => {
   };
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/my-bookings', label: 'My Bookings' },
-    { path: '/about', label: 'About' },
-    { path: '/wallet', label: 'Wallet' },
-    { path: '/contact', label: 'Support' },
+    { path: '/', label: t('nav.home') },
+    { path: '/my-bookings', label: t('nav.myBookings') },
+    { path: '/about', label: t('nav.about') },
+    { path: '/wallet', label: t('nav.wallet') },
+    { path: '/contact', label: t('nav.support') },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -70,8 +73,8 @@ const Header = () => {
           <button
             className="header__theme-toggle"
             onClick={toggleTheme}
-            aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-            title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+            aria-label={isDark ? t('nav.lightMode') : t('nav.darkMode')}
+            title={isDark ? t('nav.lightMode') : t('nav.darkMode')}
             id="theme-toggle-btn"
           >
             <div className={`header__theme-icon-wrap ${isDark ? '' : 'rotated'}`}>
@@ -79,26 +82,29 @@ const Header = () => {
             </div>
           </button>
 
+          {/* Language Selector */}
+          <LanguageSelector />
+
           {user ? (
             <div className="header__user">
-              <Link to="/profile" className="header__user-name" title="View Profile">
+              <Link to="/profile" className="header__user-name" title={t('nav.myProfile')}>
                 <User size={14} />
                 <span className="header__user-name-text">{user.name}</span>
               </Link>
-              <button className="header__logout-btn" onClick={handleLogout} title="Logout">
+              <button className="header__logout-btn" onClick={handleLogout} title={t('nav.logout')}>
                 <LogOut size={16} />
               </button>
             </div>
           ) : (
             <Link to="/login" className="header__login-btn" id="header-login-btn">
               <User size={16} />
-              <span>Login</span>
+              <span>{t('nav.login')}</span>
             </Link>
           )}
 
           <Link to="/" className="header__book-btn" id="header-book-btn">
             <Ticket size={18} />
-            <span>Book Now</span>
+            <span>{t('nav.bookNow')}</span>
           </Link>
 
           {/* Mobile menu toggle */}
@@ -131,7 +137,7 @@ const Header = () => {
           onClick={() => { toggleTheme(); }}
         >
           {isDark ? <Sun size={16} /> : <Moon size={16} />}
-          {isDark ? 'Light Mode' : 'Dark Mode'}
+          {isDark ? t('nav.lightMode') : t('nav.darkMode')}
         </button>
         {user ? (
           <>
@@ -140,13 +146,13 @@ const Header = () => {
               className={`header__mobile-link ${isActive('/profile') ? 'active' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              My Profile
+              {t('nav.myProfile')}
             </Link>
             <button
               className="header__mobile-link"
               onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
             >
-              Logout ({user.name})
+              {t('nav.logout')} ({user.name})
             </button>
           </>
         ) : (
@@ -155,7 +161,7 @@ const Header = () => {
             className={`header__mobile-link ${isActive('/login') ? 'active' : ''}`}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Login / Sign Up
+            {t('nav.loginSignUp')}
           </Link>
         )}
       </div>

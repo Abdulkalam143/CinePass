@@ -5,11 +5,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Clock, AlertTriangle } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
+import { useTranslation } from '../context/LanguageContext';
 import './Timer.css';
 
 const HOLD_DURATION = 5 * 60; // 5 minutes in seconds
 
 const Timer = () => {
+  const { t } = useTranslation();
   const { timerActive, handleTimerExpiry, selectedSeats } = useBooking();
   const [timeLeft, setTimeLeft] = useState(HOLD_DURATION);
   const intervalRef = useRef(null);
@@ -51,7 +53,7 @@ const Timer = () => {
       <div className="timer__header">
         {isUrgent ? <AlertTriangle size={16} /> : <Clock size={16} />}
         <span className="timer__label">
-          {isUrgent ? 'Hurry! Seats releasing soon' : 'Seat hold timer'}
+          {isUrgent ? t('timer.hurry') : t('timer.seatHold')}
         </span>
       </div>
 

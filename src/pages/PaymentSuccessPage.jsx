@@ -7,11 +7,13 @@ import { motion } from 'framer-motion';
 import { CheckCircle, Home, Download, Ticket, Calendar, MapPin } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
 import { formatPrice } from '../utils/seatUtils';
+import { useTranslation } from '../context/LanguageContext';
 import './PaymentSuccessPage.css';
 
 const PaymentSuccessPage = () => {
   const navigate = useNavigate();
   const { lastBooking, resetBooking } = useBooking();
+  const { t } = useTranslation();
   const [confetti, setConfetti] = useState([]);
 
   // Generate confetti pieces
@@ -36,8 +38,8 @@ const PaymentSuccessPage = () => {
   if (!lastBooking) {
     return (
       <div className="payment-page__empty container">
-        <h2>No booking found</h2>
-        <button onClick={() => navigate('/')}>Go Home</button>
+        <h2>{t('success.noBookingFound')}</h2>
+        <button onClick={() => navigate('/')}>{t('details.goHome')}</button>
       </div>
     );
   }
@@ -81,7 +83,7 @@ const PaymentSuccessPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          Payment Successful! 🎉
+          {t('success.successful')}
         </motion.h1>
 
         <motion.p
@@ -90,7 +92,7 @@ const PaymentSuccessPage = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
         >
-          Your tickets have been booked successfully
+          {t('success.ticketsBooked')}
         </motion.p>
 
         {/* Booking ticket card */}
@@ -102,19 +104,19 @@ const PaymentSuccessPage = () => {
         >
           <div className="payment-page__ticket-header">
             <Ticket size={20} />
-            <span>Booking Confirmed</span>
+            <span>{t('success.confirmed')}</span>
             <span className="payment-page__booking-id">{lastBooking.bookingId}</span>
           </div>
 
           <div className="payment-page__ticket-body">
             <div className="payment-page__ticket-row">
               <div className="payment-page__ticket-field">
-                <span className="payment-page__ticket-label">Movie</span>
+                <span className="payment-page__ticket-label">{t('success.movie')}</span>
                 <span className="payment-page__ticket-value">{lastBooking.movie.title}</span>
               </div>
               <div className="payment-page__ticket-field">
                 <span className="payment-page__ticket-label">
-                  <Calendar size={12} /> Showtime
+                  <Calendar size={12} /> {t('success.showtime')}
                 </span>
                 <span className="payment-page__ticket-value">{lastBooking.showtime}</span>
               </div>
@@ -123,14 +125,14 @@ const PaymentSuccessPage = () => {
             <div className="payment-page__ticket-row">
               <div className="payment-page__ticket-field">
                 <span className="payment-page__ticket-label">
-                  <MapPin size={12} /> Seats
+                  <MapPin size={12} /> {t('success.seats')}
                 </span>
                 <span className="payment-page__ticket-value">
                   {lastBooking.seats.sort().join(', ')}
                 </span>
               </div>
               <div className="payment-page__ticket-field">
-                <span className="payment-page__ticket-label">Amount Paid</span>
+                <span className="payment-page__ticket-label">{t('success.amountPaid')}</span>
                 <span className="payment-page__ticket-value payment-page__ticket-value--amount">
                   {formatPrice(lastBooking.totalPrice + lastBooking.seatCount * 30)}
                 </span>
@@ -139,7 +141,7 @@ const PaymentSuccessPage = () => {
           </div>
 
           <div className="payment-page__ticket-footer">
-            <span>Booked on {new Date(lastBooking.timestamp).toLocaleDateString('en-IN', {
+            <span>{t('success.bookedOn')} {new Date(lastBooking.timestamp).toLocaleDateString('en-IN', {
               day: 'numeric', month: 'long', year: 'numeric'
             })}</span>
           </div>
@@ -154,11 +156,11 @@ const PaymentSuccessPage = () => {
         >
           <button className="payment-page__home-btn" onClick={handleGoHome} id="go-home-btn">
             <Home size={18} />
-            Back to Home
+            {t('success.backToHome')}
           </button>
           <button className="payment-page__download-btn" onClick={() => window.print()} id="download-ticket-btn">
             <Download size={18} />
-            Download Ticket
+            {t('success.downloadTicket')}
           </button>
         </motion.div>
       </div>

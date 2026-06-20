@@ -9,6 +9,7 @@ import {
   Crown, Award, Send, ShoppingBag, Sparkles, Tag, Copy,
   Check, Lock, ChevronRight, Users, Heart, Ticket, Mail,
 } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 import './WalletPage.css';
 
 /* ── Mock Data ───────────────────────────────────────── */
@@ -65,6 +66,7 @@ const sentGiftCards = [
 /* ── Component ───────────────────────────────────────── */
 
 const WalletPage = () => {
+  const { t } = useTranslation();
   const [balance] = useState(1250);
   const [activeTab, setActiveTab] = useState('all');
   const [showTopUp, setShowTopUp] = useState(false);
@@ -100,9 +102,9 @@ const WalletPage = () => {
   };
 
   const pageTabs = [
-    { key: 'wallet', label: 'Wallet', icon: Wallet },
-    { key: 'rewards', label: 'Rewards', icon: Sparkles },
-    { key: 'giftcards', label: 'Gift Cards', icon: Gift },
+    { key: 'wallet', label: t('wallet.tabWallet'), icon: Wallet },
+    { key: 'rewards', label: t('wallet.tabRewards'), icon: Sparkles },
+    { key: 'giftcards', label: t('wallet.tabGiftCards'), icon: Gift },
   ];
 
   return (
@@ -115,7 +117,7 @@ const WalletPage = () => {
     >
       <div className="wallet-page__content container">
         <h1 className="wallet-page__title">
-          <Wallet size={28} /> My Wallet
+          <Wallet size={28} /> {t('wallet.title')}
         </h1>
 
         {/* Page tabs */}
@@ -153,22 +155,22 @@ const WalletPage = () => {
                 animate={{ opacity: 1, y: 0 }}
               >
                 <div className="wallet-balance__left">
-                  <span className="wallet-balance__label">Available Balance</span>
+                  <span className="wallet-balance__label">{t('wallet.balance')}</span>
                   <span className="wallet-balance__amount">
                     <IndianRupee size={28} />
                     {balance.toLocaleString('en-IN')}
                   </span>
-                  <span className="wallet-balance__sub">+ ₹150 cashback pending</span>
+                  <span className="wallet-balance__sub">+ ₹150 {t('wallet.cashbackPending')}</span>
                 </div>
                 <div className="wallet-balance__actions">
                   <button
                     className="wallet-balance__btn wallet-balance__btn--add"
                     onClick={() => setShowTopUp(!showTopUp)}
                   >
-                    <Plus size={16} /> Add Money
+                    <Plus size={16} /> {t('wallet.addMoney')}
                   </button>
                   <button className="wallet-balance__btn wallet-balance__btn--pay">
-                    <CreditCard size={16} /> Pay
+                    <CreditCard size={16} /> {t('confirm.pay')}
                   </button>
                 </div>
               </motion.div>
@@ -180,14 +182,14 @@ const WalletPage = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                 >
-                  <h3>Quick Top-up</h3>
+                  <h3>{t('wallet.quickTopup')}</h3>
                   <div className="wallet-topup__amounts">
                     {[100, 200, 500, 1000, 2000].map((amt) => (
                       <button key={amt} className="wallet-topup__chip">₹{amt}</button>
                     ))}
                   </div>
                   <button className="wallet-topup__confirm">
-                    <Plus size={14} /> Add to Wallet
+                    <Plus size={14} /> {t('wallet.addToWallet')}
                   </button>
                 </motion.div>
               )}
@@ -196,7 +198,7 @@ const WalletPage = () => {
                 {/* Transactions */}
                 <section className="wallet-txns">
                   <div className="wallet-txns__header">
-                    <h2><Clock size={20} /> Transaction History</h2>
+                    <h2><Clock size={20} /> {t('wallet.history')}</h2>
                     <div className="wallet-txns__tabs">
                       {['all', 'credit', 'debit'].map((tab) => (
                         <button
@@ -204,7 +206,7 @@ const WalletPage = () => {
                           className={`wallet-txns__tab ${activeTab === tab ? 'active' : ''}`}
                           onClick={() => setActiveTab(tab)}
                         >
-                          {tab === 'all' ? 'All' : tab === 'credit' ? 'Added' : 'Spent'}
+                          {tab === 'all' ? t('wallet.all') : tab === 'credit' ? t('wallet.added') : t('wallet.spent')}
                         </button>
                       ))}
                     </div>
@@ -239,20 +241,20 @@ const WalletPage = () => {
 
                 {/* Quick rewards sidebar */}
                 <section className="wallet-rewards-mini">
-                  <h2><Gift size={20} /> Rewards</h2>
+                  <h2><Gift size={20} /> {t('wallet.tabRewards')}</h2>
                   <div className="wallet-rewards-mini__points">
                     <TrendingUp size={18} />
-                    <span>{currentPoints} Points Earned</span>
+                    <span>{currentPoints} {t('wallet.pointsEarned')}</span>
                   </div>
                   <div className="wallet-rewards-mini__tier">
                     <currentTier.icon size={16} style={{ color: currentTier.color }} />
-                    <span>{currentTier.name} Member</span>
+                    <span>{t('wallet.memberTier')}: {currentTier.name}</span>
                   </div>
                   <button
                     className="wallet-rewards-mini__cta"
                     onClick={() => setPageTab('rewards')}
                   >
-                    View All Rewards <ChevronRight size={14} />
+                    {t('wallet.tabRewards')} <ChevronRight size={14} />
                   </button>
                 </section>
               </div>
@@ -277,13 +279,13 @@ const WalletPage = () => {
                       <currentTier.icon size={28} />
                     </div>
                     <div>
-                      <span className="rewards-tier-card__label">Current Tier</span>
+                      <span className="rewards-tier-card__label">{t('wallet.memberTier')}</span>
                       <h2 className="rewards-tier-card__name" style={{ color: currentTier.color }}>{currentTier.name}</h2>
                     </div>
                   </div>
                   <div className="rewards-tier-card__points-display">
                     <span className="rewards-tier-card__points-value">{currentPoints}</span>
-                    <span className="rewards-tier-card__points-label">Points</span>
+                    <span className="rewards-tier-card__points-label">{t('wallet.points')}</span>
                   </div>
                 </div>
 
@@ -291,7 +293,7 @@ const WalletPage = () => {
                   <div className="rewards-tier-card__progress">
                     <div className="rewards-tier-card__progress-info">
                       <span>{currentPoints} / {nextTier.minPoints} pts</span>
-                      <span>{nextTier.minPoints - currentPoints} pts to {nextTier.name}</span>
+                      <span>{nextTier.minPoints - currentPoints} pts → {nextTier.name}</span>
                     </div>
                     <div className="rewards-tier-card__progress-bar">
                       <motion.div
@@ -308,7 +310,7 @@ const WalletPage = () => {
 
               {/* Tier ladder */}
               <div className="rewards-tiers">
-                <h3 className="rewards-section__subtitle"><Crown size={18} /> Membership Tiers</h3>
+                <h3 className="rewards-section__subtitle"><Crown size={18} /> {t('wallet.membershipTiers')}</h3>
                 <div className="rewards-tiers__grid">
                   {rewardTiers.map((tier, i) => {
                     const TierIcon = tier.icon;
@@ -346,7 +348,7 @@ const WalletPage = () => {
 
               {/* Milestones */}
               <div className="rewards-milestones">
-                <h3 className="rewards-section__subtitle"><Award size={18} /> Milestones</h3>
+                <h3 className="rewards-section__subtitle"><Award size={18} /> {t('wallet.milestones')}</h3>
                 <div className="rewards-milestones__grid">
                   {milestones.map((m, i) => {
                     const MIcon = m.icon;
@@ -389,7 +391,7 @@ const WalletPage = () => {
 
               {/* Redeemable Offers */}
               <div className="rewards-redeem">
-                <h3 className="rewards-section__subtitle"><ShoppingBag size={18} /> Redeem Points</h3>
+                <h3 className="rewards-section__subtitle"><ShoppingBag size={18} /> {t('wallet.redeemPoints')}</h3>
                 <div className="rewards-redeem__grid">
                   {redeemableOffers.map((offer, i) => {
                     const canRedeem = currentPoints >= offer.points;
@@ -412,7 +414,7 @@ const WalletPage = () => {
                             className={`rewards-offer__btn ${canRedeem ? '' : 'rewards-offer__btn--disabled'}`}
                             disabled={!canRedeem}
                           >
-                            {canRedeem ? 'Redeem' : 'Need more pts'}
+                            {canRedeem ? t('wallet.redeem') : t('wallet.needMore')}
                           </button>
                         </div>
                       </motion.div>
@@ -436,12 +438,12 @@ const WalletPage = () => {
               <div className="giftcards-layout">
                 {/* Send a gift card */}
                 <div className="giftcard-send">
-                  <h3 className="giftcard-send__title"><Send size={18} /> Send a Gift Card</h3>
+                  <h3 className="giftcard-send__title"><Send size={18} /> {t('wallet.sendGiftCard')}</h3>
                   <p className="giftcard-send__subtitle">Choose a design, amount, and send joy to someone special</p>
 
                   {/* Designs */}
                   <div className="giftcard-designs">
-                    <label className="giftcard-designs__label">Choose Design</label>
+                    <label className="giftcard-designs__label">{t('wallet.chooseDesign')}</label>
                     <div className="giftcard-designs__grid">
                       {giftCardDesigns.map((d) => (
                         <button
@@ -474,7 +476,7 @@ const WalletPage = () => {
                         {giftCardDesigns.find((d) => d.id === selectedDesign)?.emoji}
                       </span>
                       <div className="giftcard-preview__bottom">
-                        <span className="giftcard-preview__label">Gift Card</span>
+                        <span className="giftcard-preview__label">{t('wallet.giftCard')}</span>
                         <span className="giftcard-preview__amount">₹{selectedAmount.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
@@ -482,7 +484,7 @@ const WalletPage = () => {
 
                   {/* Amount */}
                   <div className="giftcard-amounts">
-                    <label className="giftcard-amounts__label">Select Amount</label>
+                    <label className="giftcard-amounts__label">{t('wallet.selectAmount')}</label>
                     <div className="giftcard-amounts__grid">
                       {giftCardAmounts.map((amt) => (
                         <button
@@ -499,7 +501,7 @@ const WalletPage = () => {
                   {/* Recipient */}
                   <div className="giftcard-form">
                     <div className="giftcard-form__field">
-                      <label><Mail size={14} /> Recipient's Email</label>
+                      <label><Mail size={14} /> {t('wallet.recipient')}</label>
                       <input
                         type="email"
                         value={recipientEmail}
@@ -508,7 +510,7 @@ const WalletPage = () => {
                       />
                     </div>
                     <div className="giftcard-form__field">
-                      <label><Heart size={14} /> Personal Message (optional)</label>
+                      <label><Heart size={14} /> {t('wallet.msg')}</label>
                       <textarea
                         value={giftMessage}
                         onChange={(e) => setGiftMessage(e.target.value)}
@@ -520,7 +522,7 @@ const WalletPage = () => {
 
                   <button className="giftcard-send__btn" id="giftcard-send-btn">
                     <Send size={16} />
-                    Send Gift Card — ₹{selectedAmount.toLocaleString('en-IN')}
+                    {t('wallet.send')} — ₹{selectedAmount.toLocaleString('en-IN')}
                   </button>
                 </div>
 
@@ -528,7 +530,7 @@ const WalletPage = () => {
                 <div className="giftcard-sidebar">
                   {/* Redeem */}
                   <div className="giftcard-redeem">
-                    <h3><Tag size={18} /> Redeem a Gift Card</h3>
+                    <h3><Tag size={18} /> {t('wallet.redeemGiftCard')}</h3>
                     <p className="giftcard-redeem__hint">Enter a gift card code to add funds to your wallet</p>
                     <div className="giftcard-redeem__input-wrap">
                       <input
@@ -540,16 +542,16 @@ const WalletPage = () => {
                         className="giftcard-redeem__input"
                       />
                       <button className="giftcard-redeem__btn" disabled={redeemCode.length < 10}>
-                        Redeem
+                        {t('wallet.redeem')}
                       </button>
                     </div>
                   </div>
-
+ 
                   {/* Sent gift cards */}
                   <div className="giftcard-history">
-                    <h3><Clock size={18} /> Sent Gift Cards</h3>
+                    <h3><Clock size={18} /> {t('wallet.sentGiftCards')}</h3>
                     {sentGiftCards.length === 0 ? (
-                      <p className="giftcard-history__empty">No gift cards sent yet</p>
+                      <p className="giftcard-history__empty">{t('wallet.noSentGiftCards')}</p>
                     ) : (
                       <div className="giftcard-history__list">
                         {sentGiftCards.map((gc) => (
@@ -567,7 +569,7 @@ const WalletPage = () => {
                             <div className="giftcard-history__item-right">
                               <span className="giftcard-history__item-amount">₹{gc.amount}</span>
                               <span className={`giftcard-history__item-status ${gc.redeemed ? 'redeemed' : 'pending'}`}>
-                                {gc.redeemed ? 'Redeemed' : 'Pending'}
+                                {gc.redeemed ? t('wallet.statusRedeemed') : t('wallet.statusPending')}
                               </span>
                             </div>
                             <button
