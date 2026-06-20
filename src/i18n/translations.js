@@ -241,6 +241,30 @@ export const translations = {
       bookNow: "Book Now",
       newRelease: "🔥 New Release",
       inTheaters: "🎬 In Theaters"
+    },
+    notifications: {
+      title: "Notifications",
+      all: "All",
+      alerts: "Alerts",
+      offers: "Offers",
+      markAllRead: "Mark all as read",
+      clearAll: "Clear all",
+      noNotifications: "No notifications yet",
+      copyCode: "Copy Code",
+      copied: "Copied!",
+      new: "New",
+      welcomeTitle: "Welcome to CinePass!",
+      welcomeMsg: "Explore premium movies and get personalized show times.",
+      verifyTitle: "Email Verified",
+      verifyMsg: "Your email has been verified. 100 bonus reward points added!",
+      walletTitle: "Wallet Top-up Success",
+      walletMsg: "₹500 has been credited to your digital wallet successfully.",
+      discountTitle: "Special Welcome Discount",
+      discountMsg: "Flat ₹100 off on your first ticket! Use code: CINE100",
+      bogoTitle: "Weekend BOGO Deal",
+      bogoMsg: "Buy 1 Get 1 Free on all Sunday morning shows. Code: BOGOFAST",
+      comboTitle: "Popcorn Combo 20% Off",
+      comboMsg: "Get 20% off popcorn and beverage combos. Show this at counter."
     }
   },
   hi: {
@@ -479,6 +503,30 @@ export const translations = {
       bookNow: "अभी बुक करें",
       newRelease: "🔥 नई रिलीज़",
       inTheaters: "🎬 सिनेमाघरों में"
+    },
+    notifications: {
+      title: "सूचनाएं",
+      all: "सभी",
+      alerts: "अलर्ट",
+      offers: "ऑफ़र",
+      markAllRead: "सभी पढ़े गए चिह्नित करें",
+      clearAll: "सभी साफ़ करें",
+      noNotifications: "अभी तक कोई सूचना नहीं है",
+      copyCode: "कोड कॉपी करें",
+      copied: "कॉपी किया गया!",
+      new: "नया",
+      welcomeTitle: "सिनेपास में आपका स्वागत है!",
+      welcomeMsg: "प्रीमियम फिल्मों का पता लगाएं और व्यक्तिगत शो समय प्राप्त करें।",
+      verifyTitle: "ईमेल सत्यापित",
+      verifyMsg: "आपका ईमेल सत्यापित कर दिया गया है। 100 बोनस इनाम अंक जोड़े गए!",
+      walletTitle: "वॉलेट टॉप-अप सफल",
+      walletMsg: "₹500 आपके डिजिटल वॉलेट में सफलतापूर्वक जमा कर दिए गए हैं।",
+      discountTitle: "विशेष स्वागत छूट",
+      discountMsg: "आपके पहले टिकट पर फ्लैट ₹100 की छूट! कोड का उपयोग करें: CINE100",
+      bogoTitle: "वीकेंड BOGO डील",
+      bogoMsg: "सभी रविवार सुबह के शो पर 1 खरीदें 1 मुफ्त पाएं। कोड: BOGOFAST",
+      comboTitle: "पॉपकॉर्न कॉम्बो पर 20% छूट",
+      comboMsg: "पॉपकॉर्न और पेय कॉम्बो पर 20% की छूट प्राप्त करें। इसे काउंटर पर दिखाएं।"
     }
   },
   te: {
@@ -717,6 +765,30 @@ export const translations = {
       bookNow: "ఇప్పుడే బుక్ చేయి",
       newRelease: "🔥 కొత్త విడుదల",
       inTheaters: "🎬 థియేటర్లలో"
+    },
+    notifications: {
+      title: "నోటిఫિકేషన్లు",
+      all: "అన్నీ",
+      alerts: "అలర్ట్‌లు",
+      offers: "ఆఫర్‌లు",
+      markAllRead: "అన్నీ చదివినట్లుగా గుర్తించు",
+      clearAll: "అన్నీ తీసివేయి",
+      noNotifications: "ఇంకా నోటిఫിക്കేషన్లు లేవు",
+      copyCode: "కోడ్ కాపీ చేయి",
+      copied: "కాపీ చేయబడింది!",
+      new: "కొತ್ತది",
+      welcomeTitle: "சினீபாஸിലേക്ക് സ്വാഗതം!",
+      welcomeMsg: "ప్రీమియం సినిಮాలను అన్ವೇಷಿಸಿ ಮತ್ತು ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ಪ್ರದರ್ಶನ ಸಮಯಗಳನ್ನು ಪಡೆಯಿರಿ.",
+      verifyTitle: "ఈమెయిల్ ధృవీకరించబడింది",
+      verifyMsg: "మీ ఈమెయిల్ ధృవీకరించబడింది. 100 బోనస్ రివార్ಡ್ పాయింట్లు జోడించబడ్డాయి!",
+      walletTitle: "వాలెట్ టాప్-అప్ విజయం",
+      walletMsg: "₹500 విజయవంతంగా మీ డిజిటల్ వాలెట్‌లో జమ చేయబడింది.",
+      discountTitle: "ప్రత్యేక స్వాగత తగ్గింపు",
+      discountMsg: "మీ మొదటి టిక్కెట్‌పై ఫ్లాట్ ₹100 తగ్గింపు! కోడ్ ఉపయోగించండి: CINE100",
+      bogoTitle: "వీకెండ్ BOGO డీల్",
+      bogoMsg: "ఆదివారం ఉదయం ప్రదర్శనలపై 1 కొంటే 1 ఉచితం. కోడ్: BOGOFAST",
+      comboTitle: "పాప్‌కార్న్ కాంబోపై 20% తగ్గింపు",
+      comboMsg: "పాప్‌కార్న్ మరియు పానీయాల కాంబోలపై 20% తగ్గింపు పొందండి. కೌంటర్ వద్ద చూపించండి."
     }
   },
   ta: {
@@ -955,6 +1027,30 @@ export const translations = {
       bookNow: "முன்பதிவு செய்க",
       newRelease: "🔥 புதிய வெளியீடு",
       inTheaters: "🎬 திரையரங்குகளில்"
+    },
+    notifications: {
+      title: "அறிவிப்புகள்",
+      all: "அனைத்தும்",
+      alerts: "எச்சரிக்கைகள்",
+      offers: "சலுகைகள்",
+      markAllRead: "அனைத்தையும் படித்ததாகக் குறி",
+      clearAll: "அனைத்தையும் அழி",
+      noNotifications: "இன்னும் அறிவிப்புகள் இல்லை",
+      copyCode: "குறியீட்டை நகலெடு",
+      copied: "நகலெடுக்கப்பட்டது!",
+      new: "புதியது",
+      welcomeTitle: "சினிபாஸுக்கு உங்களை வரவேற்கிறோம்!",
+      welcomeMsg: "பிரீமியம் திரைப்படங்களை ஆராய்ந்து தனிப்பயனாக்கப்பட்ட காட்சி நேரங்களைப் பெறுங்கள்.",
+      verifyTitle: "மின்னஞ்சல் சரிபார்க்கப்பட்டது",
+      verifyMsg: "உங்கள் மின்னஞ்சல் சரிபார்க்கப்பட்டது. 100 போனஸ் வெகுமதி புள்ளிகள் சேர்க்கப்பட்டன!",
+      walletTitle: "வாலெட் டாப்-அப் வெற்றி",
+      walletMsg: "₹500 உங்கள் டிஜிட்டல் வாலெட்டில் வெற்றிகரமாக வரவு வைக்கப்பட்டது.",
+      discountTitle: "சிறப்பு வரவேற்பு தள்ளுபடி",
+      discountMsg: "உங்கள் முதல் டிக்கெட்டிற்கு பிளாட் ₹100 தள்ளுபடி! குறியீட்டைப் பயன்படுத்துக: CINE100",
+      bogoTitle: "வார இறுதி BOGO சலுகை",
+      bogoMsg: "ஞாயிறு காலை காட்சிகளில் 1 வாங்கினால் 1 இலவசம். குறியீடு: BOGOFAST",
+      comboTitle: "பாப்கார்ன் कॉम्बो 20% தள்ளுபடி",
+      comboMsg: "பாப்கார்ன் மற்றும் குளிர்பানের காம்போக்களுக்கு 20% தள்ளுபடி பெறுங்கள். கவுண்டரில் காண்பிக்கவும்."
     }
   },
   kn: {
@@ -1193,6 +1289,30 @@ export const translations = {
       bookNow: "ಈಗಲೇ ಬುಕ್ ಮಾಡಿ",
       newRelease: "🔥 ಹೊಸ ಬಿಡುಗಡೆ",
       inTheaters: "🎬 ಚಿತ್ರಮಂದಿರಗಳಲ್ಲಿ"
+    },
+    notifications: {
+      title: "ಸೂಚನೆಗಳು",
+      all: "ಎಲ್ಲಾ",
+      alerts: "ಎಚ್ಚರಿಕೆಗಳು",
+      offers: "ಕೊಡುಗೆಗಳು",
+      markAllRead: "ಎಲ್ಲವನ್ನೂ ಓದಿದಂತೆ ಗುರುತಿಸಿ",
+      clearAll: "ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ",
+      noNotifications: "ಇನ್ನೂ ಯಾವುದೇ ಸೂಚನೆಗಳಿಲ್ಲ",
+      copyCode: "ಕೋಡ್ ಕಾಪಿ ಮಾಡಿ",
+      copied: "ಕಾಪಿ ಮಾಡಲಾಗಿದೆ!",
+      new: "ಹೊಸತು",
+      welcomeTitle: "ಸಿನಿಪಾಸ್‌ಗೆ ಸುಸ್ವಾಗತ!",
+      welcomeMsg: "ಪ್ರೀಮಿಯಂ ಚಲನಚಿತ್ರಗಳನ್ನು ಅನ್ವೇಷಿಸಿ ಮತ್ತು ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ಪ್ರದರ್ಶನ ಸಮಯವನ್ನು ಪಡೆಯಿರಿ.",
+      verifyTitle: "ಇಮೇಲ್ ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
+      verifyMsg: "ನಿಮ್ಮ ಇಮೇಲ್ ಪರಿಶೀಲಿಸಲಾಗಿದೆ. 100 ಬೋನಸ್ ಬಹುಮಾನ ಅಂಕಗಳನ್ನು ಸೇರಿಸಲಾಗಿದೆ!",
+      walletTitle: "ವ್ಯಾಲೆಟ್ ಟಾಪ್-ಅಪ್ ಯಶಸ್ವಿ",
+      walletMsg: "₹500 ನಿಮ್ಮ ಡಿಜಿಟಲ್ ವ್ಯಾಲೆಟ್‌ಗೆ ಯಶಸ್ವಿಯಾಗಿ ಜಮೆಯಾಗಿದೆ.",
+      discountTitle: "ವಿಶೇಷ ಸ್ವಾಗತ ರಿಯಾಯಿತಿ",
+      discountMsg: "ನಿಮ್ಮ ಮೊದಲ ಟಿಕೆಟ್ ಮೇಲೆ ಫ್ಲಾಟ್ ₹100 ರಿಯಾಯಿತಿ! ಕೋಡ್ ಬಳಸಿ: CINE100",
+      bogoTitle: "ವೀಕೆಂಡ್ BOGO ಆಫರ್",
+      bogoMsg: "ಭಾನುವಾರದ ಎಲ್ಲಾ ಬೆಳಗಿನ ಶೋಗಳ ಮೇಲೆ 1 ಖರೀದಿಸಿದರೆ 1 ಉಚಿತ. ಕೋಡ್: BOGOFAST",
+      comboTitle: "ಪಾಪ್‌ಕಾರ್ನ್ ಕಾಂಬೊಗೆ 20% ರಿಯಾಯಿತಿ",
+      comboMsg: "ಪಾಪ್‌ಕಾರ್ನ್ ಮತ್ತು ಪಾನೀಯ ಕಾಂಬೊಗಳ ಮೇಲೆ 20% ರಿಯಾಯಿತಿ ಪಡೆಯಿರಿ. ಕೌಂಟರ್‌ನಲ್ಲಿ ತೋರಿಸಿ."
     }
   },
   ml: {
@@ -1431,6 +1551,30 @@ export const translations = {
       bookNow: "ഇപ്പോൾ ബുക്ക് ചെയ്യുക",
       newRelease: "🔥 പുതിയ റിലീസ്",
       inTheaters: "🎬 തിയേറ്ററുകളിൽ"
+    },
+    notifications: {
+      title: "അറിയിപ്പുകൾ",
+      all: "എല്ലാം",
+      alerts: "അലേർട്ടുകൾ",
+      offers: "ഓഫറുകൾ",
+      markAllRead: "എല്ലാം വായിച്ചതായി അടയാളപ്പെടുത്തുക",
+      clearAll: "എല്ലാം മായ്‌ക്കുക",
+      noNotifications: "ഇതുവരെ അറിയിപ്പുകൾ ഇല്ല",
+      copyCode: "കോഡ് പകർപ്പ് ചെയ്യുക",
+      copied: "പകർത്തി!",
+      new: "പുതിയത്",
+      welcomeTitle: "സിനിപാസിലേക്ക് സ്വാഗതം!",
+      welcomeMsg: "പ്രീമിയം സിനിമകൾ പര്യവേക്ഷണം ചെയ്യുക, വ്യക്തിഗതമാക്കിയ ഷോ സമയങ്ങൾ നേടുക.",
+      verifyTitle: "ഇമെയിൽ പരിശോധിച്ചു ഉറപ്പിച്ചു",
+      verifyMsg: "നിങ്ങളുടെ ഇമെയിൽ പരിശോധിച്ചു ഉറപ്പിച്ചു. 100 ബോണസ് റിവാർഡ് പോയിന്റുകൾ ചേർത്തു!",
+      walletTitle: "വാലറ്റ് ടോപ്പ്-അപ്പ് വിജയം",
+      walletMsg: "₹500 നിങ്ങളുടെ ഡിജിറ്റൽ വാലറ്റിലേക്ക് വിജയകരമായി ക്രെഡിറ്റ് ചെയ്തു.",
+      discountTitle: "പ്രത്യേക സ്വാഗത ഡിസ്കൗണ്ട്",
+      discountMsg: "നിങ്ങളുടെ ആദ്യ ടിക്കറ്റിന് ഫ്ലാറ്റ് ₹100 കിഴിവ്! കോഡ് ഉപയോഗിക്കുക: CINE100",
+      bogoTitle: "വീക്കെൻഡ് BOGO ഓഫർ",
+      bogoMsg: "എല്ലാ ഞായറാഴ്ച രാവിലെ ഷോകൾക്കും 1 വാങ്ങുമ്പോൾ 1 സൗജന്യം. കോഡ്: BOGOFAST",
+      comboTitle: "പോപ്കോൺ കോംബോയ്ക്ക് 20% കിഴിവ്",
+      comboMsg: "പോപ്കോൺ, പാനീയ കോംബോകൾക്ക് 20% കിഴിവ് നേടുക. കൗണ്ടറിൽ കാണിക്കുക."
     }
   },
   bn: {
@@ -1668,7 +1812,31 @@ export const translations = {
     card: {
       bookNow: "এখনই বুক করুন",
       newRelease: "🔥 নতুন রিলিজ",
-      inTheaters: "🎬 সিনেমা হলে"
+      inTheaters: "🎬 প্রেক্ষাগৃহে"
+    },
+    notifications: {
+      title: "বিজ্ঞপ্তি",
+      all: "সব",
+      alerts: "সতর্কতা",
+      offers: "অফার",
+      markAllRead: "সব পঠিত হিসেবে চিহ্নিত করুন",
+      clearAll: "সব মুছে ফেলুন",
+      noNotifications: "এখনও কোনো বিজ্ঞপ্তি নেই",
+      copyCode: "কোড কপি করুন",
+      copied: "কপি করা হয়েছে!",
+      new: "নতুন",
+      welcomeTitle: "সিনেপাসে স্বাগতম!",
+      welcomeMsg: "প্রিমিয়াম সিনেমাগুলি অন্বেষণ করুন এবং ব্যক্তিগতকৃত শোয়ের সময় পান।",
+      verifyTitle: "ইমেল যাচাই করা হয়েছে",
+      verifyMsg: "আপনার ইমেল যাচাই করা হয়েছে। ১০০ বোনাস রিওয়ার্ড পয়েন্ট যোগ করা হয়েছে!",
+      walletTitle: "ওয়ালেট টপ-আপ সফল",
+      walletMsg: "আপনার ডিজিটাল ওয়ালেটে সফলভাবে ₹৫০০ জমা করা হয়েছে।",
+      discountTitle: "বিশেষ স্বাগত ডিসকাউন্ট",
+      discountMsg: "আপনার প্রথম টিকিটে ফ্ল্যাট ₹১০০ ছাড়! কোড ব্যবহার করুন: CINE100",
+      bogoTitle: "উইকএন্ড BOGO অফার",
+      bogoMsg: "রবিবারের সমস্ত সকালের শোতে ১টি কিনলে ১টি ফ্রি। কোড: BOGOFAST",
+      comboTitle: "পপকর্ন কম্বোতে ২০% ছাড়",
+      comboMsg: "পপকর্ন এবং পানীয় কম্বোতে ২০% ছাড় পান। কাউন্টারে এটি দেখান।"
     }
   },
   mr: {
@@ -1907,6 +2075,30 @@ export const translations = {
       bookNow: "आता बुक करा",
       newRelease: "🔥 नवीन रिलीज",
       inTheaters: "🎬 चित्रपटगृहात"
+    },
+    notifications: {
+      title: "सूचना",
+      all: "सर्व",
+      alerts: "अलर्ट",
+      offers: "ऑफर",
+      markAllRead: "सर्व वाचलेले म्हणून चिन्हांकित करा",
+      clearAll: "सर्व साफ करा",
+      noNotifications: "अद्याप कोणतीही सूचना नाही",
+      copyCode: "कोड कॉपी करा",
+      copied: "कॉपी केले!",
+      new: "नवीन",
+      welcomeTitle: "सिनेपासमध्ये आपले स्वागत आहे!",
+      welcomeMsg: "प्रीमियम चित्रपटांचा शोध घ्या आणि वैयक्तिकृत शोच्या वेळा मिळवा.",
+      verifyTitle: "ईमेल सत्यापित",
+      verifyMsg: "तुमचा ईमेल सत्यापित करण्यात आला आहे. १०० बोनस रिवॉर्ड पॉईंट्स जोडले गेले आहेत!",
+      walletTitle: "वॉलेट倒-अप यशस्वी",
+      walletMsg: "तुमच्या डिजिटल वॉलेटमध्ये ₹५०० यशस्वीरित्या जमा झाले आहेत.",
+      discountTitle: "विशेष स्वागत सवलत",
+      discountMsg: "तुमच्या पहिल्या तिकिटावर फ्लॅट ₹१०० सूट! कोड वापरा: CINE100",
+      bogoTitle: "वीकेंड BOGO डील",
+      bogoMsg: "रविवारच्या सकाळच्या सर्व शोवर १ खरेदी करा आणि १ मोफत मिळवा. कोड: BOGOFAST",
+      comboTitle: "पॉपकॉर्न कॉम्बोवर २०% सूट",
+      comboMsg: "पॉपकॉर्न आणि शीतपेये कॉम्बोवर २०% सूट मिळवा. काउंटरवर हे दाखवा."
     }
   },
   gu: {
@@ -2145,6 +2337,30 @@ export const translations = {
       bookNow: "હમણાં બુક કરો",
       newRelease: "🔥 નવી રીલીઝ",
       inTheaters: "🎬 થિયેટરોમાં"
+    },
+    notifications: {
+      title: "સૂચનાઓ",
+      all: "બધા",
+      alerts: "ચેતવણીઓ",
+      offers: "ઑફર્સ",
+      markAllRead: "બધા વાંચેલા તરીકે માર્ક કરો",
+      clearAll: "બધા સાફ કરો",
+      noNotifications: "હજી સુધી કોઈ સૂચના નથી",
+      copyCode: "કોડ કોપી કરો",
+      copied: "કોપી કર્યું!",
+      new: "નવું",
+      welcomeTitle: "સિનેપાસમાં આપનું સ્વાગત છે!",
+      welcomeMsg: "પ્રીમિયમ મૂવીઝ શોધો અને વ્યક્તિગત શો સમય મેળવો.",
+      verifyTitle: "ઈમેલ વેરિફાઈડ",
+      verifyMsg: "તમારો ઈમેલ વેરિફાય થઈ ગયો છે. ૧૦૦ બોનસ રિવોર્ડ પોઈન્ટ ઉમેરવામાં આવ્યા છે!",
+      walletTitle: "વોલેટ ટોપ-અપ સફળ",
+      walletMsg: "₹૫૦૦ તમારા ડિજિટલ વોલેટમાં સફળતાપૂર્વક જમા થઈ ગયા છે.",
+      discountTitle: "ખાસ સ્વાગત ડિસ્કાઉન્ટ",
+      discountMsg: "તમારી પ્રથમ ટિકિટ પર ફ્લેટ ₹૧૦૦ ની છૂટ! કોડ વાપરો: CINE100",
+      bogoTitle: "વીકએન્ડ BOGO ડીલ",
+      bogoMsg: "બધા રવિવાર સવારના શો પર ૧ ખરીદો ૧ મફત મેળવો. કોડ: BOGOFAST",
+      comboTitle: "પોપકોર્ન કોમ્બો પર ૨૦% ડિસ્ಕಾઉન્ટ",
+      comboMsg: "પોપકોર્ન અને સોફ્ટ ડ્રિંક કોમ્બોઝ પર ૨૦% છૂટ મેળવો. કાઉન્ટર પર બતાવો."
     }
   },
   pa: {
@@ -2383,6 +2599,30 @@ export const translations = {
       bookNow: "ਹੁਣੇ ਬੁੱਕ ਕਰੋ",
       newRelease: "🔥 ਨਵੀਂ ਰਿਲੀਜ਼",
       inTheaters: "🎬 ਸਿਨੇਮਾਘਰਾਂ ਵਿੱਚ"
+    },
+    notifications: {
+      title: "ਨੋਟੀਫਿਕੇਸ਼ਨ",
+      all: "ਸਭ",
+      alerts: "ਅਲਰਟ",
+      offers: "ਆਫ਼ਰ",
+      markAllRead: "ਸਭ ਪੜ੍ਹੇ ਵਜੋਂ ਮਾਰਕ ਕਰੋ",
+      clearAll: "ਸਭ ਸਾਫ਼ ਕਰੋ",
+      noNotifications: "ਅਜੇ ਕੋਈ ਨੋਟੀਫਿਕੇਸ਼ਨ ਨਹੀਂ ਹੈ",
+      copyCode: "ਕੋਡ ਕਾਪੀ ਕਰੋ",
+      copied: "ਕਾਪੀ ਕੀਤਾ!",
+      new: "ਨਵਾਂ",
+      welcomeTitle: "ਸਿਨੇਪਾਸ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ!",
+      welcomeMsg: "ਪ੍ਰੀਮੀਅਮ ਫਿਲਮਾਂ ਦੀ ਖੋਜ ਕਰੋ ਅਤੇ ਨਿੱਜੀ ਸ਼ੋਅ ਦੇ ਸਮੇਂ ਪ੍ਰਾਪਤ ਕਰੋ।",
+      verifyTitle: "ਈਮੇਲ ਵੈਰੀਫਾਈਡ",
+      verifyMsg: "ਤੁਹਾਡੀ ਈਮੇਲ ਵੈਰੀਫਾਈ ਹੋ ਗਈ ਹੈ। 100 ਬੋਨਸ ਇਨਾਮ ਅੰਕ ਜੋੜ ਦਿੱਤੇ ਗਏ ਹਨ!",
+      walletTitle: "ਵਾਲਿਟ ਟੌਪ-ਅਪ ਸਫਲ",
+      walletMsg: "₹500 ਤੁਹਾਡੇ ਡਿਜੀਟਲ ਵਾਲਿਟ ਵਿੱਚ ਸਫਲਤਾਪੂਰਵਕ ਜਮ੍ਹਾਂ ਹੋ ਗਏ ਹਨ।",
+      discountTitle: "ਖਾਸ ਸੁਆਗਤ ਛੋਟ",
+      discountMsg: "ਤੁਹਾਡੀ ਪਹਿਲੀ ਟਿਕਟ 'ਤੇ ਫਲੈਟ ₹100 ਦੀ ਛੋਟ! ਕੋਡ ਵਰਤੋ: CINE100",
+      bogoTitle: "ਵੀਕਐਂਡ BOGO ਡੀਲ",
+      bogoMsg: "ਸਾਰੇ ਐਤਵਾਰ ਸਵੇਰ ਦੇ ਸ਼ੋਅ 'ਤੇ 1 ਖਰੀਦੋ 1 ਮੁਫਤ ਪਾਓ। ਕੋਡ: BOGOFAST",
+      comboTitle: "ਪੌਪਕੌਰਨ ਕੰਬੋ 'ਤੇ 20% ਛੋਟ",
+      comboMsg: "ਪੌਪਕੌਰਨ ਅਤੇ ਕੋਲਡ ਡ੍ਰਿੰਕ ਕੰਬੋਜ਼ 'ਤੇ 20% ਛੋਟ ਪ੍ਰਾਪत ਕਰੋ। ਕਾਊਂਟਰ 'ਤੇ ਦਿਖਾਓ।"
     }
   },
   or: {
@@ -2620,7 +2860,31 @@ export const translations = {
     card: {
       bookNow: "ଏବେ ବୁକ୍ କରନ୍ତୁ",
       newRelease: "🔥 ନୂଆ ରିଲିଜ୍",
-      inTheaters: "🎬 ସିନେମା ହଲରେ"
+      inTheaters: "🎬 ପ୍ରେକ୍ଷାଳୟରେ"
+    },
+    notifications: {
+      title: "ସୂଚନା",
+      all: "ସବୁ",
+      alerts: "ସତର୍କତା",
+      offers: "ଅଫର",
+      markAllRead: "ସବୁ ପଢାଯାଇଥିବା ଚିହ୍ନିତ କରନ୍ତୁ",
+      clearAll: "ସବୁ ସଫା କରନ୍ତୁ",
+      noNotifications: "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସୂଚନା ନାହିଁ",
+      copyCode: "କୋଡ୍ କପି କରନ୍ତୁ",
+      copied: "କପି ହେଲା!",
+      new: "ନୂତନ",
+      welcomeTitle: "ସିନେପାସକୁ ସ୍ୱାଗତ!",
+      welcomeMsg: "ପ୍ରିମିୟମ ଚଳଚ୍ଚିତ୍ରଗୁଡିକ ଅନୁସନ୍ଧାନ କରନ୍ତୁ ଏବଂ ବ୍ୟକ୍ତିଗତ ଶୋ ସମୟ ପାଆନ୍ତୁ ।",
+      verifyTitle: "ଇମେଲ୍ ଯାଞ୍ଚ ହେଲା",
+      verifyMsg: "ଆପଣଙ୍କର ଇମେଲ୍ ଯାଞ୍ଚ ହୋଇଯାଇଛି। 100 ବୋନସ୍ ପଏଣ୍ଟ ଯୋଗ କରାଗଲା!",
+      walletTitle: "ୱାଲେଟ୍ ଟପ୍-ଅପ୍ ସଫଳ",
+      walletMsg: "ଆପଣଙ୍କର ଡିଜିଟାଲ୍ ୱାଲେଟରେ ₹୫୦୦ ସଫଳତାର ସହିତ ଜମା ହୋଇଛି ।",
+      discountTitle: "ବିଶେଷ ସ୍ୱାଗତ ରିହାତି",
+      discountMsg: "ଆପଣଙ୍କର ପ୍ରଥମ ଟିକେଟ୍ ଉପରେ ଫ୍ଲାଟ୍ ₹୧୦୦ ରିହାତି! କୋଡ୍ ବ୍ୟବହାର କରନ୍ତୁ: CINE100",
+      bogoTitle: "ୱିକେଣ୍ଡ BOGO ଅଫର",
+      bogoMsg: "ସବୁ ରବିବାର ସକାଳ ଶୋ’ରେ ୧ଟି କିଣିଲେ ୧ଟି ମାଗଣା । କୋଡ୍: BOGOFAST",
+      comboTitle: "ପପକର୍ଣ୍ଣ କମ୍ବୋ ଉପରେ ୨୦% ରିହାତି",
+      comboMsg: "ପପକର୍ଣ୍ଣ ଏବଂ ପାନୀୟ କମ୍ବୋ ଉପରେ ୨୦% ରିହାତି ପାଆନ୍ତୁ । କାଉଣ୍ଟରରେ ଏହାକୁ ଦେଖାନ୍ତୁ ।"
     }
   },
   as: {
@@ -2858,7 +3122,31 @@ export const translations = {
     card: {
       bookNow: "এতিয়াই বুক কৰক",
       newRelease: "🔥 নতুন মুক্তি",
-      inTheaters: "🎬 ছবিগৃহত"
+      inTheaters: "🎬 ছবিঘৰত"
+    },
+    notifications: {
+      title: "জাননীসমূহ",
+      all: "সকলো",
+      alerts: "সতৰ্কতা",
+      offers: "অফাৰ",
+      markAllRead: "সকলো পঢ়া বুলি চিহ্নিত কৰক",
+      clearAll: "সকলো মচি পেলাওক",
+      noNotifications: "এতিয়ালৈকে কোনো জাননী নাই",
+      copyCode: "কড কপি কৰক",
+      copied: "কপি কৰা হ’ল!",
+      new: "নতুন",
+      welcomeTitle: "চিনেপাছলৈ স্বাগতম!",
+      welcomeMsg: "প্ৰিমিয়াম চলচ্চিত্ৰসমূহ অন্বেষণ কৰক আৰু ব্যক্তিগতকৃত শ্ব’ৰ সময় লাভ কৰক।",
+      verifyTitle: "ইমেইল প্ৰমাণীকৃত হ’ল",
+      verifyMsg: "আপোনাৰ ইমেইল প্ৰমাণীকৰণ কৰা হৈছে। ১০০ বোনাছ পুৰস্কাৰ পইণ্ট যোগ কৰা হৈছে!",
+      walletTitle: "ৱালেট টপ-আপ সফল",
+      walletMsg: "আপোনাৰ ডিজিটেল ৱালেটত সফলতাৰে ₹৫০০ জমা হৈছে।",
+      discountTitle: "বিশেষ আদৰণি ৰেহাই",
+      discountMsg: "আপোনাৰ প্ৰথমটো টিকটত ফ্লেট ₹১০০ ৰেহাই! কড ব্যৱহাৰ কৰক: CINE100",
+      bogoTitle: "উইকএণ্ড BOGO অফাৰ",
+      bogoMsg: "দেওবাৰৰ সকলো ৰাতিপুৱাৰ শ্ব’ত ১টা কিনিলে ১টা বিনামূলীয়া। কড: BOGOFAST",
+      comboTitle: "পপকৰ্ন কম্বোত ২০% ৰেহাই",
+      comboMsg: "পপকৰ্ন আৰু শীতল পানীয় কম্বোত ২০% ৰেহাই পাওক। কাউণ্টাৰত ইয়াক দেখুৱাওক।"
     }
   },
   ur: {
@@ -3097,6 +3385,30 @@ export const translations = {
       bookNow: "ابھی بک کریں",
       newRelease: "🔥 نئی ریلیز",
       inTheaters: "🎬 سینما گھروں میں"
+    },
+    notifications: {
+      title: "نوٹیفیکیشنز",
+      all: "سب",
+      alerts: "الرٹس",
+      offers: "آفرز",
+      markAllRead: "سب کو پڑھا ہوا نشان زد کریں",
+      clearAll: "سب صاف کریں",
+      noNotifications: "ابھی تک کوئی نوٹیفیکیشن نہیں ہے",
+      copyCode: "کوڈ کاپی کریں",
+      copied: "کاپی ہو گیا!",
+      new: "نیا",
+      welcomeTitle: "سینی پاس میں خوش آمدید!",
+      welcomeMsg: "پریمیم فلمیں دریافت کریں اور اپنے پسندیدہ شو کا وقت حاصل کریں۔",
+      verifyTitle: "ای میل تصدیق شدہ",
+      verifyMsg: "آپ کا ای میل تصدیق ہو گیا ہے۔ 100 انعامی پوائنٹس شامل کر دیے گئے ہیں!",
+      walletTitle: "والیٹ ٹاپ اپ کامیاب",
+      walletMsg: "₹500 کامیابی کے ساتھ آپ کے ڈیجیٹل والیٹ میں جمع کر دیے گئے ہیں۔",
+      discountTitle: "خصوصی تہنیتی رعایت",
+      discountMsg: "آپ کے پہلے ٹکٹ پر فلیٹ ₹100 کی چھوٹ! کوڈ استعمال کریں: CINE100",
+      bogoTitle: "ویکنڈ BOGO آفر",
+      bogoMsg: "اتوار کی صبح کے تمام شوز پر 1 خریدیں 1 مفت پائیں۔ کوڈ: BOGOFAST",
+      comboTitle: "پاپ کارن کمبو پر 20٪ کی چھوٹ",
+      comboMsg: "پاپ کارن اور مشروب کے کمبو پر 20٪ کی چھوٹ حاصل کریں۔ اسے کاؤنٹر پر دکھائیں۔"
     }
   }
 };
